@@ -1,10 +1,25 @@
-# petpals-caregivers
+<style>
+r { color: Red }
+o { color: Orange }
+g { color: Green }
+b {color: #ff6e7f}
+c { color: #DA22FF}
+p {color:#bfe9ff}
+</style>
 
+
+# <o>petpals-caregivers</o>
+## <c>Prerequisites</c>
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+> - Java 17
+> - Maven 3.9.6
+> - Intellij Ultimate
+> - local sonarqube server (not mandatory)
 
-## Running the application in dev mode
+
+## <b>Running the application in dev mode</b>
 
 You can run your application in dev mode that enables live coding using:
 
@@ -14,7 +29,7 @@ You can run your application in dev mode that enables live coding using:
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Packaging and running the application
+## <b>Packaging and running the application</b>
 
 The application can be packaged using:
 
@@ -35,7 +50,7 @@ If you want to build an _über-jar_, execute the following command:
 
 The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+## <b>Creating a native executable</b>
 
 You can create a native executable using:
 
@@ -53,7 +68,7 @@ You can then execute your native executable with: `./target/petpals-caregivers-1
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
-## Related Guides
+## <b>Related Guides</b>
 
 - Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and
   Jakarta Persistence
@@ -66,15 +81,15 @@ If you want to learn more about building native executables, please consult http
 - Logging JSON ([guide](https://quarkus.io/guides/logging#json-logging)): Add JSON formatter for console logging
 - JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
 
-## Provided Code
+## <b>Provided Code
 
-### Hibernate ORM
+### Hibernate ORM</b>
 
 Create your first JPA entity
 
 [Related guide section...](https://quarkus.io/guides/hibernate-orm)
 
-### RESTEasy JAX-RS
+### <b>RESTEasy JAX-RS</b>
 
 Easily start your RESTful Web Services
 
