@@ -162,23 +162,46 @@ public class Caregivers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Caregivers that = (Caregivers) o;
-        return caregiverId == that.caregiverId && homeService == that.homeService  && Double.compare(that.appointmentDuration, appointmentDuration) == 0 && Double.compare(that.priceRating, priceRating) == 0 && Double.compare(that.serviceRating, serviceRating) == 0 && isSubscribed == that.isSubscribed && firstName.equals(that.firstName) && lastName.equals(that.lastName) && email.equals(that.email) && phoneNumber.equals(that.phoneNumber) && address.equals(that.address) && city.equals(that.city) && zipCode.equals(that.zipCode) && country.equals(that.country) && Arrays.equals(workingDays, that.workingDays) && Arrays.equals(palsHandled, that.palsHandled);
+        return caregiverId == that.caregiverId && homeService == that.homeService && Double.compare(that.appointmentDuration, appointmentDuration) == 0 && Double.compare(that.priceRating, priceRating) == 0 && Double.compare(that.serviceRating, serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(firstName, that.firstName) && lastName.equals(that.lastName) && email.equals(that.email) && phoneNumber.equals(that.phoneNumber) && address.equals(that.address) && city.equals(that.city) && zipCode.equals(that.zipCode) && country.equals(that.country) && Arrays.equals(workingDays, that.workingDays) && Arrays.equals(palsHandled, that.palsHandled) && Objects.equals(clients, that.clients);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(caregiverId, firstName, lastName, email, phoneNumber, address, city, zipCode, country, homeService, appointmentDuration, priceRating, serviceRating, isSubscribed);
+        int result = Objects.hash(caregiverId, firstName, lastName, email, phoneNumber, address, city, zipCode, country, homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, clients);
         result = 31 * result + Arrays.hashCode(workingDays);
         result = 31 * result + Arrays.hashCode(palsHandled);
         return result;
     }
 
-    public long getId() {
+    @Override
+    public String toString() {
+        return "Caregivers{" +
+                "caregiverId=" + caregiverId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
+                ", workingDays=" + Arrays.toString(workingDays) +
+                ", palsHandled=" + Arrays.toString(palsHandled) +
+                ", homeService=" + homeService +
+                ", appointmentDuration=" + appointmentDuration +
+                ", priceRating=" + priceRating +
+                ", serviceRating=" + serviceRating +
+                ", isSubscribed=" + isSubscribed +
+                ", clients=" + clients +
+                '}';
+    }
+
+    public long getCaregiverId() {
         return caregiverId;
     }
 
-    public void setId(long id) {
-        this.caregiverId = id;
+    public void setCaregiverId(long caregiverId) {
+        this.caregiverId = caregiverId;
     }
 
     public String getFirstName() {
@@ -299,5 +322,13 @@ public class Caregivers {
 
     public void setSubscribed(boolean subscribed) {
         isSubscribed = subscribed;
+    }
+
+    public List<Pals> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Pals> clients) {
+        this.clients = clients;
     }
 }
