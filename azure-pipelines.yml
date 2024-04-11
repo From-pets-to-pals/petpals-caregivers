@@ -39,12 +39,12 @@ stages:
       displayName: 'Copy Files to artifact staging directory'
       inputs:
         SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/target'
-        Contents: '$(APP_NAME).jar'
+        Contents: '$(APP_NAME)-runner.jar'
         TargetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'petpals-pals'
+        ArtifactName: '$(APP_NAME)'
         publishLocation: 'Container'
 
 - stage: Deploy
@@ -56,7 +56,7 @@ stages:
       inputs:
         buildType: 'current'
         downloadType: 'single'
-        artifactName: 'petpals-pals'
+        artifactName: '$(APP_NAME)'
         itemPattern: '**/*.jar'
         downloadPath: '$(System.ArtifactsDirectory)'
         checkDownloadedFiles: true
@@ -64,15 +64,15 @@ stages:
       displayName: 'Copy Files from artifact staging directory'
       inputs:
         SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)'
-        Contents: '$(APP_NAME).jar'
+        Contents: '$(APP_NAME)-runner.jar'
         TargetFolder: $(System.DefaultWorkingDirectory)
     - task: AzureWebApp@1
       inputs:
         azureSubscription: 'Azure subscription 1(1)(f1248dd5-2384-4478-bf73-b940c14b63dc)'
         appType: 'webAppLinux'
-        appName: 'petpals-caregivers'
-        package: '$(System.DefaultWorkingDirectory)/$(APP_NAME).jar'
+        appName: '$(APP_NAME)'
+        package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
         runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java -jar /home/site/wwwroot/$(APP_NAME).jar --quarkus.http.port=80 --quarkus.http.host=0.0.0.0'
+        startUpCommand: 'java -jar /home/site/wwwroot/$(APP_NAME)-runner.jar --quarkus.http.port=80 --quarkus.http.host=0.0.0.0'
         appSettings: '-WEBSITES_PORT 80'
         configurationStrings: '-PORT 80'
