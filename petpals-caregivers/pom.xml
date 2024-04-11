@@ -115,6 +115,7 @@
     </dependency>
   </dependencies>
   <build>
+    <finalName>petpals-caregivers</finalName>
     <plugins>
       <plugin>
         <inherited>true</inherited>
@@ -168,7 +169,7 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>${maven.version}</maven.home>
+            <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
       </plugin>
