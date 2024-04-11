@@ -1,0 +1,21 @@
+trigger:
+- main
+
+
+pool:
+   name: Default
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'petpals-caregivers/pom.xml'
+    goals: 'clean package'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'JaCoCo'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
