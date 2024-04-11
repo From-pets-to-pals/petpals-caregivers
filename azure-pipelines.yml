@@ -9,7 +9,7 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'petpals-caregivers/pom.xml'
-    goals: 'clean package'
+    goals: 'clean package $(TEST_PORT)'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     codeCoverageToolOption: 'JaCoCo'
