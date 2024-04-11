@@ -57,12 +57,11 @@ stages:
         SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)'
         Contents: '$(APP_NAME).jar'
         TargetFolder: $(System.DefaultWorkingDirectory)
-        sdq
     - task: AzureWebApp@1
       inputs:
-        azureSubscription: 'Azure subscription 1(f1248dd5-2384-4478-bf73-b940c14b63dc)'
+        azureSubscription: 'Azure subscription 1(1)(f1248dd5-2384-4478-bf73-b940c14b63dc)'
         appType: 'webAppLinux'
-        appName: 'petpals-pals'
+        appName: 'petpals-caregivers'
         package: '$(System.DefaultWorkingDirectory)/$(APP_NAME).jar'
         runtimeStack: 'JAVA|17-java17'
         startUpCommand: 'java -jar /home/site/wwwroot/$(APP_NAME).jar --quarkus.http.port=80 --quarkus.http.host=0.0.0.0'
