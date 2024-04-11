@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.petpals.caregivers</groupId>
   <artifactId>petpals-caregivers</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <properties>
     <packaging>jar</packaging>
     <compiler-plugin.version>3.12.1</compiler-plugin.version>
