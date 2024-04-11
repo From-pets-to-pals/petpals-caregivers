@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-
 @Entity
 @Table(name = "owners")
 public class Owners {
