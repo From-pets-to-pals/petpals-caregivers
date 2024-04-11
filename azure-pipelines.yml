@@ -14,7 +14,7 @@ stages:
     - task: ExtractFiles@1
       inputs:
         archiveFilePatterns: 'apache-maven-3.9.6-bin.zip'
-        destinationFolder: '$(System.DefaultWorkingDirectory)/maven'
+        destinationFolder: '$(Build.SourcesDirectory)/maven'
     - task: JavaToolInstaller@0
       inputs:
         versionSpec: '17'
@@ -30,7 +30,7 @@ stages:
         codeCoverageToolOption: 'JaCoCo'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
-        mavenDirectory: '$(System.DefaultWorkingDirectory)/maven/apache-maven-3.9.6'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
         mavenSetM2Home: true
         mavenAuthenticateFeed: false
         effectivePomSkip: false
