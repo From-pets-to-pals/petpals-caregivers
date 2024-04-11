@@ -30,7 +30,7 @@ stages:
         codeCoverageToolOption: 'JaCoCo'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
-        mavenDirectory: '$(System.DefaultWorkingDirectory)/maven'
+        mavenDirectory: '$(System.DefaultWorkingDirectory)/maven/apache-maven-3.9.6'
         mavenSetM2Home: true
         mavenAuthenticateFeed: false
         effectivePomSkip: false
