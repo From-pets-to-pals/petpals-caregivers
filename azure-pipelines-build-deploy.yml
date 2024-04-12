@@ -34,6 +34,10 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '**/surefire-reports/com.petpals.pals.*.txt'
+        pathToSources: '**/surefire-reports/TEST-*.xml'
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
@@ -72,6 +76,6 @@ stages:
         appName: '$(APP_NAME)'
         package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
         runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java -Dquarkus.http.port=80 -Dquarkus.http.host=0.0.0.0 -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
+        startUpCommand: 'java $(PORT) $(HOST) -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
         appSettings: '-WEBSITES_PORT 80'
         configurationStrings: '-PORT 80'
