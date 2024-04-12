@@ -23,7 +23,7 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: '$(APP_NAME)/pom.xml'
-        goals: 'clean package'
+        goals: 'clean package -Dserver.port=80 -Dserver.host=127.0.0.1'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
@@ -34,6 +34,10 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '**/surefire-reports/com.petpals.pals.*.txt'
+        pathToSources: '**/surefire-reports/TEST-*.xml'
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
@@ -64,7 +68,8 @@ stages:
       inputs:
         SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)'
         Contents: '$(APP_NAME)-runner.jar'
-        TargetFolder: $(System.DefaultWorkingDirectory)
+        TargetFolder: '$(System.DefaultWorkingDirectory)'
+        OverWrite: true
     - task: AzureWebApp@1
       inputs:
         azureSubscription: 'Azure subscription 1(1)(f1248dd5-2384-4478-bf73-b940c14b63dc)'
@@ -72,6 +77,6 @@ stages:
         appName: '$(APP_NAME)'
         package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
         runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java "-Dquarkus.http.port=80" "-Dquarkus.http.host=0.0.0.0" -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
+        startUpCommand: 'java -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
         appSettings: '-WEBSITES_PORT 80'
         configurationStrings: '-PORT 80'
