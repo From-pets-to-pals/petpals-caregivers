@@ -76,6 +76,6 @@ stages:
         appName: '$(APP_NAME)'
         package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
         runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java $(PORT) $(HOST) -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
+        startUpCommand: 'java -Dquarkus.http.port=0.0.0.0 -Dquarkus.http.host=80 -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
         appSettings: '-WEBSITES_PORT 80'
         configurationStrings: '-PORT 80'
