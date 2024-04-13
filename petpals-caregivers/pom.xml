@@ -5,6 +5,7 @@
   <groupId>com.petpals.caregivers</groupId>
   <artifactId>petpals-caregivers</artifactId>
   <version>0.1.0-SNAPSHOT</version>
+  <name>petpals-caregivers</name>
   <properties>
     <packaging>jar</packaging>
     <compiler-plugin.version>3.12.1</compiler-plugin.version>
@@ -114,7 +115,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>petpals-caregivers</finalName>
+    <finalName>${name}</finalName>
     <plugins>
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>

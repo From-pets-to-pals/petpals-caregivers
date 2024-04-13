@@ -1,5 +1,6 @@
 package com.petpals.caregivers.bootstrap.tenant;
 
+import com.azure.identity.ClientSecretCredentialBuilder;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
@@ -42,9 +43,14 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
     private AgroalDataSource createDatasource() {
         SecretClient secretClient = new SecretClientBuilder()
                 .vaultUrl(KEY_VAULT_URI)
-                .credential(new DefaultAzureCredentialBuilder().build())
+                .credential(new ClientSecretCredentialBuilder()
+                        .tenantId("851bef4a-6c51-445b-812f-9dd619bedeb7")
+                        .clientSecret("UYk8Q~.93HF9GO_VP9W75kjwT4ksPX0DgPiiCbUq")
+                        .clientId("6e314b3a-dd0c-4a97-b9dd-1ad9a8b0402a")
+                        .build())
                 .buildClient();
         LOG.info("Retrieving secrets from Azure key vault");
+        LOG.info(secretClient.getSecret("DB-URL").getValue());
         final String url = secretClient.getSecret("DB-URL").getValue() + "/" + secretClient.getSecret("DB-NAME").getValue() + "?currentSchema=" + secretClient.getSecret("DB-NAME").getValue();
         AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
 
