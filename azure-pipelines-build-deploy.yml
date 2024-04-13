@@ -23,7 +23,7 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: '$(APP_NAME)/pom.xml'
-        goals: 'clean package -Dquarkur.http.port=80 -Dquarkuss.http.host=127.0.0.1'
+        goals: 'clean package'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
