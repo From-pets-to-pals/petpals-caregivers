@@ -3,6 +3,7 @@ package com.petpals.caregivers.persistence.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Objects;
 
@@ -15,6 +16,7 @@ public class Owners {
 
     @Email
     @Column(name = "email", nullable = false)
+    @UniqueElements
     private String mail;
 
     @NotBlank
@@ -22,6 +24,7 @@ public class Owners {
     private String device;
     @NotBlank
     @Column(name = "reference", nullable = false)
+    @UniqueElements
     private String reference;
 
 
