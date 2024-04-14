@@ -3,6 +3,8 @@ package com.petpals.caregivers.persistence.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
 import java.sql.Date;
 import java.util.List;
@@ -27,8 +29,9 @@ public class Pals {
     private String shortname;
 
     @NotNull
-    @Column(name = "ICADIdentifier", nullable = false,columnDefinition = "char(15)")
-    private String ICADIdentifier;
+    @Length(min=15, max=15)
+    @Column(name = "icadidentifier", nullable = false,columnDefinition = "bpchar(15)")
+    private String icadidentifier;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Owners owner;
@@ -80,7 +83,7 @@ public class Pals {
                 Date nextVaccine,
                 Date nextPlannedApp) {
         this.name = name;
-        this.ICADIdentifier = ICADIdentifier;
+        this.icadidentifier = ICADIdentifier;
         this.owner = owner;
         this.birthDate = birthDate;
         this.specie = specie;
@@ -99,12 +102,12 @@ public class Pals {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pals pals = (Pals) o;
-        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && name.equals(pals.name) && ICADIdentifier.equals(pals.ICADIdentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && specie.equals(pals.specie) && breed.equals(pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && palReference.equals(pals.palReference);
+        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && name.equals(pals.name) && icadidentifier.equals(pals.icadidentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && specie.equals(pals.specie) && breed.equals(pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && palReference.equals(pals.palReference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, ICADIdentifier, owner, birthDate, specie, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference);
+        return Objects.hash(id, name, icadidentifier, owner, birthDate, specie, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference);
     }
 
     @Override
@@ -112,7 +115,7 @@ public class Pals {
         return "Pals{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ICADIdentifier='" + ICADIdentifier + '\'' +
+                ", ICADIdentifier='" + icadidentifier + '\'' +
                 ", owner=" + owner +
                 ", birthDate=" + birthDate +
                 ", specie='" + specie + '\'' +
@@ -144,11 +147,11 @@ public class Pals {
     }
 
     public String getICADIdentifier() {
-        return ICADIdentifier;
+        return icadidentifier;
     }
 
     public void setICADIdentifier(String ICADIdentifier) {
-        this.ICADIdentifier = ICADIdentifier;
+        this.icadidentifier = ICADIdentifier;
     }
 
     public void setOwner(Owners owner) {

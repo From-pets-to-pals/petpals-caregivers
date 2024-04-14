@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.bootstrap.interceptors;
 
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
