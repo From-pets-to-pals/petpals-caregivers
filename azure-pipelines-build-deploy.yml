@@ -34,10 +34,6 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-    - task: PublishCodeCoverageResults@2
-      inputs:
-        summaryFileLocation: '**/surefire-reports/com.petpals.pals.*.txt'
-        pathToSources: '**/surefire-reports/TEST-*.xml'
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
