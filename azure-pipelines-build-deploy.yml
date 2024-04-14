@@ -23,7 +23,8 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: '$(APP_NAME)/pom.xml'
-        goals: 'clean package -DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
+        goals: 'clean package'
+        options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
