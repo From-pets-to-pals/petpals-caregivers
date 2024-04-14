@@ -1,6 +1,7 @@
 trigger:
 - main
 
+name: caregivers-$(Build.BuildId)
 
 stages:
 - stage: Build
@@ -46,34 +47,3 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: '$(APP_NAME)'
         publishLocation: 'Container'
-
-- stage: Deploy
-  displayName: Deploy to petpals-pals
-  jobs:
-  - job: Deploy
-    steps:
-    - task: DownloadBuildArtifacts@1
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: '$(APP_NAME)'
-        itemPattern: '**/*.jar'
-        downloadPath: '$(System.ArtifactsDirectory)'
-        checkDownloadedFiles: true
-    - task: CopyFiles@2
-      displayName: 'Copy Files from artifact staging directory'
-      inputs:
-        SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)'
-        Contents: '$(APP_NAME)-runner.jar'
-        TargetFolder: '$(System.DefaultWorkingDirectory)'
-        OverWrite: true
-    - task: AzureWebApp@1
-      inputs:
-        azureSubscription: 'Azure subscription 1(1)(f1248dd5-2384-4478-bf73-b940c14b63dc)'
-        appType: 'webAppLinux'
-        appName: '$(APP_NAME)'
-        package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
-        runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java -DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID) -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
-        appSettings: '-WEBSITES_PORT 80'
-        configurationStrings: '-PORT 80'
