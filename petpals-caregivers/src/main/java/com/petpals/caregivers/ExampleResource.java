@@ -20,6 +20,7 @@ public class ExampleResource {
     }
 
     @GET
+    @Path("/withName")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloName(String name) {
         return "Hello " + name;
