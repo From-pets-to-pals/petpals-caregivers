@@ -18,4 +18,10 @@ public class ExampleResource {
     public String hello() {
         return "Hello RESTEasy";
     }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String helloName(String name) {
+        return "Hello " + name;
+    }
 }
