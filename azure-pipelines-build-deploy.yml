@@ -23,7 +23,7 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: '$(APP_NAME)/pom.xml'
-        goals: 'clean package'
+        goals: 'clean package -DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
@@ -73,6 +73,6 @@ stages:
         appName: '$(APP_NAME)'
         package: '$(System.DefaultWorkingDirectory)/$(APP_NAME)-runner.jar'
         runtimeStack: 'JAVA|17-java17'
-        startUpCommand: 'java -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
+        startUpCommand: 'java -DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID) -jar /home/site/wwwroot/$(APP_NAME)-runner.jar'
         appSettings: '-WEBSITES_PORT 80'
         configurationStrings: '-PORT 80'
