@@ -1,7 +1,6 @@
 package com.petpals.caregivers.bootstrap.tenant;
 
 import com.azure.identity.ClientSecretCredentialBuilder;
-import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import io.agroal.api.AgroalDataSource;
@@ -16,9 +15,9 @@ import io.quarkus.hibernate.orm.PersistenceUnitExtension;
 import io.quarkus.hibernate.orm.runtime.customized.QuarkusConnectionProvider;
 import io.quarkus.hibernate.orm.runtime.tenant.TenantConnectionResolver;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.transaction.TransactionManager;
 import jakarta.transaction.TransactionSynchronizationRegistry;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.jboss.logging.Logger;
 
@@ -32,6 +31,12 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
     private final Logger LOG = Logger.getLogger(DatasourceConfigurator.class);
     TransactionManager transactionManager;
     TransactionSynchronizationRegistry transactionSynchronizationRegistry;
+    @ConfigProperty(name = "azure.tenantid")
+    String tenantId;
+    @ConfigProperty(name = "azure.secret")
+    String secret;
+    @ConfigProperty(name = "azure.clientid")
+    String clientId;
 
     public DatasourceConfigurator(TransactionManager transactionManager, TransactionSynchronizationRegistry transactionSynchronizationRegistry) {
         this.transactionManager = transactionManager;
@@ -44,14 +49,14 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
         SecretClient secretClient = new SecretClientBuilder()
                 .vaultUrl(KEY_VAULT_URI)
                 .credential(new ClientSecretCredentialBuilder()
-                        .tenantId("851bef4a-6c51-445b-812f-9dd619bedeb7")
-                        .clientSecret("UYk8Q~.93HF9GO_VP9W75kjwT4ksPX0DgPiiCbUq")
-                        .clientId("6e314b3a-dd0c-4a97-b9dd-1ad9a8b0402a")
+                        .tenantId(tenantId)
+                        .clientSecret(secret)
+                        .clientId(clientId)
                         .build())
                 .buildClient();
         LOG.info("Retrieving secrets from Azure key vault");
-        LOG.info(secretClient.getSecret("DB-URL").getValue());
         final String url = secretClient.getSecret("DB-URL").getValue() + "/" + secretClient.getSecret("DB-NAME").getValue() + "?currentSchema=" + secretClient.getSecret("DB-NAME").getValue();
+        LOG.info("Secrets successfully retrieved");
         AgroalDataSourceConfigurationSupplier dataSourceConfiguration = new AgroalDataSourceConfigurationSupplier();
 
         AgroalConnectionPoolConfigurationSupplier poolConfiguration = dataSourceConfiguration.connectionPoolConfiguration();
@@ -72,6 +77,7 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
                 .credential(new NamePrincipal((secretClient.getSecret("DB-ADMIN").getValue())))
                 .credential(new SimplePassword((secretClient.getSecret("DB-PASSWORD").getValue())));
     try{
+        LOG.info("Building Datasource from secrets");
         return AgroalDataSource.from(dataSourceConfiguration.get());
     } catch (
     SQLException ex) {
