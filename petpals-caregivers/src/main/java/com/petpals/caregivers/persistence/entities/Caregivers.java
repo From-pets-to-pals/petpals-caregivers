@@ -16,36 +16,51 @@ import java.util.Objects;
 @Table(name="caregivers")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="caregiver_type",
-        discriminatorType = DiscriminatorType.INTEGER)
+        discriminatorType = DiscriminatorType.STRING)
 public class Caregivers {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caregivers_generator")
+    @SequenceGenerator(name = "caregivers_generator", sequenceName = "caregivers_seq", allocationSize = 1 )
     @Column(name="caregiver_id")
-    private long caregiverId;
+    private Long caregiverId;
+
+    @NotBlank
+    @Column(name = "reference",columnDefinition = "bpchar(36)")
+    private String reference;
+
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank
     @Column(name="last_name")
     private String lastName;
+
     @Email
     @Column(name="email")
     private String email;
+
     @NotBlank
     @Column(name="phone_number")
     private String phoneNumber;
+
     @NotBlank
     @Column(name="address")
     private String address;
+
     @NotBlank
     @Column(name="city")
     private String city;
+
     @NotBlank
     @Column(name="zip_code")
     private String zipCode;
+
     @NotBlank
     @Column(name="country")
     private String country;
+
     @Type(StringArrayType.class)
     @Column(
             name = "working_days",
@@ -65,15 +80,15 @@ public class Caregivers {
     private boolean homeService;
 
     @DecimalMin(value = "0.25")
-    @Column(name="appointment_duration")
+    @Column(name="appointment_duration", columnDefinition = "numeric(1,1) default 0.0")
     private double appointmentDuration;
 
     @DecimalMin(value = "0.0")
-    @Column(name="price rating", columnDefinition = "numeric(1,1) default 2.5")
+    @Column(name="price_rating", columnDefinition = "numeric(1,1) default 5.0")
     private double priceRating;
 
     @DecimalMin(value = "0.0")
-    @Column(name="service_rating", columnDefinition = "numeric(1,1) default 2.5")
+    @Column(name="service_rating", columnDefinition = "numeric(1,1) default 5.0")
     private double serviceRating;
 
     @NotNull
@@ -92,6 +107,7 @@ public class Caregivers {
     }
 
     public Caregivers(
+            String reference,
             String firstName,
             String lastName,
             String email,
@@ -103,10 +119,10 @@ public class Caregivers {
             String[] workingDays,
             String[] palsHandled,
             boolean homeService,
-            CaregiverTypes caregiverType,
             double appointmentDuration,
             double priceRating,
             double serviceRating) {
+        this.reference = reference;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -124,7 +140,8 @@ public class Caregivers {
         this.isSubscribed = false;
     }
 
-    public Caregivers createOne(String firstName,
+    public Caregivers createOne(String reference,
+                                String firstName,
                                 String lastName,
                                 String email,
                                 String phoneNumber,
@@ -135,11 +152,11 @@ public class Caregivers {
                                 String[] workingDays,
                                 String[] palsHandled,
                                 boolean homeService,
-                                CaregiverTypes caregiverType,
                                 double appointmentDuration,
                                 double priceRating,
                                 double serviceRating){
         return new Caregivers(
+                reference,
                 firstName,
                 lastName,
                 email,
@@ -151,7 +168,6 @@ public class Caregivers {
                 workingDays,
                 palsHandled,
                 homeService,
-                caregiverType,
                 appointmentDuration,
                 priceRating,
                 serviceRating);
@@ -196,11 +212,11 @@ public class Caregivers {
                 '}';
     }
 
-    public long getCaregiverId() {
+    public Long getCaregiverId() {
         return caregiverId;
     }
 
-    public void setCaregiverId(long caregiverId) {
+    public void setCaregiverId(Long caregiverId) {
         this.caregiverId = caregiverId;
     }
 
@@ -330,5 +346,13 @@ public class Caregivers {
 
     public void setClients(List<Pals> clients) {
         this.clients = clients;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 }

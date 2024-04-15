@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.application.entrypoints;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PathParam;
@@ -10,7 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 
 @Path("/hello")
 @SecurityRequirement(name = "api_key")
-public class ExampleResource {
+public class HealthCheckResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

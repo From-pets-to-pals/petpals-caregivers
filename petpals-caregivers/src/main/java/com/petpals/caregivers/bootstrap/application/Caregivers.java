@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.bootstrap.application;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;

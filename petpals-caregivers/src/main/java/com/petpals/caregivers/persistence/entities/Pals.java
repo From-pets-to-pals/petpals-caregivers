@@ -3,22 +3,21 @@ package com.petpals.caregivers.persistence.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "pals")
 public class Pals {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = SEQUENCE, generator = "pals_generator")
     @Column(name = "pal_id")
-    //@SequenceGenerator(name="pals_SEQ")
+    @SequenceGenerator(name="pals_generator", sequenceName = "pals_seq", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -48,7 +47,7 @@ public class Pals {
     @Column(name="has_passport")
     private boolean hasPassport;
     @NotNull
-    @Column(name="isMale", nullable = false)
+    @Column(name="is_male", nullable = false)
     private boolean isMale;
 
     @Column(name="is_sterilized")
@@ -57,15 +56,16 @@ public class Pals {
     @Column(name="is_vaccinated")
     private boolean isVaccinated;
 
-    @Column(name="nextVaccine")
+    @Column(name="next_vaccine")
     private Date nextVaccine;
-    @Column(name="nextPlannedApp")
+    @Column(name="next_planned_app")
     private Date nextPlannedApp;
 
-    @Column(name="palReference")
+    @Column(name="reference",columnDefinition = "bpchar(36)")
     private String palReference;
+
     @ManyToMany(mappedBy = "clients")
-    private List<Caregivers> employees;
+    private List<Caregivers> caregivers;
     public Pals() {
     }
 
@@ -250,11 +250,11 @@ public class Pals {
         this.palReference = palReference;
     }
 
-    public List<Caregivers> getEmployees() {
-        return employees;
+    public List<Caregivers> getCaregivers() {
+        return caregivers;
     }
 
-    public void setEmployees(List<Caregivers> employees) {
-        this.employees = employees;
+    public void setCaregivers(List<Caregivers> caregivers) {
+        this.caregivers = caregivers;
     }
 }

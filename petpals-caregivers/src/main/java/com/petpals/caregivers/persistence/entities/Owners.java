@@ -10,8 +10,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "owners")
 public class Owners {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "owners_generator")
+    @SequenceGenerator(name = "owners_generator", sequenceName = "owners_seq", allocationSize = 1 )
     private Long id;
 
     @Email

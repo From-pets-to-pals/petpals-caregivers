@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.bootstrap.interceptors;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
