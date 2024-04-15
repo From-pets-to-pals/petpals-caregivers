@@ -55,7 +55,7 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         codeCoverageToolOption: 'JaCoCo'
-        codeCoverageClassFilter: '-:$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/src/main/java/com/petpals/caregivers/application/dto/*.java,-:$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/src/main/java/com/petpals/caregivers/persistence/entities/*.java,-:$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/src/main/java/com/petpals/caregivers/domain/pojo/*.java'
+        codeCoverageClassFilter: '-:com.petpals.caregivers.application.dto.*.java,-:com.petpals.caregivers.persistence.entities.*.java,-:$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/src/main/java/com/petpals/caregivers/domain/pojo/*.java'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
         mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
