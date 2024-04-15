@@ -65,7 +65,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/target'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/$(APP_NAME)/target'
         Contents: '$(APP_NAME)-runner.jar'
         TargetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishBuildArtifacts@1
