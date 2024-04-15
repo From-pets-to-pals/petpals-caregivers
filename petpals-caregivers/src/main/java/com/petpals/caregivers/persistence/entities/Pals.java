@@ -47,7 +47,7 @@ public class Pals {
     @Column(name="has_passport")
     private boolean hasPassport;
     @NotNull
-    @Column(name="isMale", nullable = false)
+    @Column(name="is_male", nullable = false)
     private boolean isMale;
 
     @Column(name="is_sterilized")
@@ -56,13 +56,14 @@ public class Pals {
     @Column(name="is_vaccinated")
     private boolean isVaccinated;
 
-    @Column(name="nextVaccine")
+    @Column(name="next_vaccine")
     private Date nextVaccine;
-    @Column(name="nextPlannedApp")
+    @Column(name="next_planned_app")
     private Date nextPlannedApp;
 
-    @Column(name="palReference")
+    @Column(name="reference",columnDefinition = "bpchar(36)")
     private String palReference;
+
     @ManyToMany(mappedBy = "clients")
     private List<Caregivers> caregivers;
     public Pals() {

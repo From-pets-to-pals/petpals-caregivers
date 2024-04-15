@@ -26,7 +26,7 @@ public class Caregivers {
     private Long caregiverId;
 
     @NotBlank
-    @Column(name = "reference")
+    @Column(name = "reference",columnDefinition = "bpchar(36)")
     private String reference;
 
     @NotBlank
@@ -84,7 +84,7 @@ public class Caregivers {
     private double appointmentDuration;
 
     @DecimalMin(value = "0.0")
-    @Column(name="price rating", columnDefinition = "numeric(1,1) default 5.0")
+    @Column(name="price_rating", columnDefinition = "numeric(1,1) default 5.0")
     private double priceRating;
 
     @DecimalMin(value = "0.0")
