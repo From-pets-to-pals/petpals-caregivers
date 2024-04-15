@@ -1,7 +1,8 @@
 package com.petpals.caregivers.application.dto;
 
-import com.petpals.shared.entities.CaregiverTypes;
-import com.petpals.shared.entities.Species;
+
+import com.petpals.shared.enums.CaregiverTypes;
+import com.petpals.shared.enums.Species;
 
 import java.util.Arrays;
 import java.util.Objects;

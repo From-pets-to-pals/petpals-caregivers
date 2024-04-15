@@ -2,8 +2,8 @@ package com.petpals.caregivers.domain.pojo;
 
 import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.persistence.entities.Pals;
-import com.petpals.shared.entities.CaregiverTypes;
-import com.petpals.shared.entities.Species;
+import com.petpals.shared.enums.CaregiverTypes;
+import com.petpals.shared.enums.Species;
 
 import java.util.List;
 
