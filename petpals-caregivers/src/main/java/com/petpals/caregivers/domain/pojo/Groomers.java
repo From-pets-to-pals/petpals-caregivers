@@ -1,4 +1,4 @@
-package com.petpals.caregivers.domain;
+package com.petpals.caregivers.domain.pojo;
 
 import com.petpals.caregivers.persistence.entities.Pals;
 import com.petpals.shared.entities.CaregiverTypes;
