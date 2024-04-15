@@ -1,5 +1,6 @@
 package com.petpals.caregivers.persistence.repository;
 
+import com.petpals.caregivers.persistence.errorhandling.DBPersistenceException;
 import com.petpals.caregivers.persistence.entities.Caregivers;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
@@ -76,7 +77,7 @@ public class CaregiversTest {
     @TestTransaction
     void shouldThrowConstraintViolationExceptionWhenAddCaregiverToDb() {
         Mockito.doThrow(ConstraintViolationException.class).when(groomersRepositoryMock).persistAndFlush(caregiver);
-        Assertions.assertThrows(RuntimeException.class, () -> caregiversPersistence.saveGroomer(caregiver));
+        Assertions.assertThrows(DBPersistenceException.class, () -> caregiversPersistence.saveGroomer(caregiver));
         Mockito.verify(groomersRepositoryMock).persistAndFlush(caregiversArgumentCaptor.capture());
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }

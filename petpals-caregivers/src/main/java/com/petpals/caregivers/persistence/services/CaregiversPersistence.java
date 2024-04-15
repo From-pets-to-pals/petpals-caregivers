@@ -1,5 +1,7 @@
 package com.petpals.caregivers.persistence.services;
 
+import com.petpals.caregivers.persistence.errorhandling.DBExceptionsEnum;
+import com.petpals.caregivers.persistence.errorhandling.DBPersistenceException;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,16 +20,16 @@ public class CaregiversPersistence {
         this.caregiversRepository = caregiversRepository;
     }
 
-    @Transactional(rollbackOn = {RuntimeException.class})
+    @Transactional(rollbackOn = {DBPersistenceException.class})
     public void saveGroomer(Groomers caregiver) {
         try {
             LOG.info("flushing");
             caregiversRepository.persistAndFlush(caregiver);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
-                LOG.info(exc.toString());
+                LOG.error(exc.toString());
             }
-            throw new RuntimeException();
+            throw new DBPersistenceException(DBExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
     }
 }
