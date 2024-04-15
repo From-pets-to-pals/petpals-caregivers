@@ -1,7 +1,3 @@
-trigger:
-- main
-
-name: caregivers-$(Build.BuildId)
 
 resources:
   repositories:
@@ -10,6 +6,12 @@ resources:
     endpoint: FlowerInTheRain
     name: From-pets-to-pals/petpals-common
 
+trigger:
+- main
+
+name: caregivers-$(Build.BuildId)
+
+
 stages:
 - stage: Build
   displayName: Build stage
@@ -17,6 +19,7 @@ stages:
   - job: PackageAndBuild
     steps:
     - checkout: petpals-common
+    - script: dir $(Build.SourcesDirectory)
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
