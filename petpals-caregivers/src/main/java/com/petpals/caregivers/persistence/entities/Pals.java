@@ -3,14 +3,12 @@ package com.petpals.caregivers.persistence.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -66,7 +64,7 @@ public class Pals {
     @Column(name="palReference")
     private String palReference;
     @ManyToMany(mappedBy = "clients")
-    private List<Caregivers> employees;
+    private List<Caregivers> caregivers;
     public Pals() {
     }
 
@@ -251,11 +249,11 @@ public class Pals {
         this.palReference = palReference;
     }
 
-    public List<Caregivers> getEmployees() {
-        return employees;
+    public List<Caregivers> getCaregivers() {
+        return caregivers;
     }
 
-    public void setEmployees(List<Caregivers> employees) {
-        this.employees = employees;
+    public void setCaregivers(List<Caregivers> caregivers) {
+        this.caregivers = caregivers;
     }
 }

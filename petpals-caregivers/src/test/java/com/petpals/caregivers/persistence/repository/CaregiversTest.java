@@ -1,10 +1,10 @@
 package com.petpals.caregivers.persistence.repository;
 
+import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.pojo.Caregivers;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
-import com.petpals.caregivers.persistence.entities.Pals;
-import com.petpals.caregivers.persistence.errorhandling.DBPersistenceException;
 import com.petpals.caregivers.persistence.entities.Groomers;
+import com.petpals.caregivers.persistence.errorhandling.DBPersistenceException;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
 import com.petpals.shared.entities.CaregiverTypes;
 import com.petpals.shared.entities.Species;
@@ -24,7 +24,8 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 
 @QuarkusTest
-public class CaregiversTest {
+
+class CaregiversTest {
 
     @InjectMock
     GroomersRepository groomersRepositoryMock;
@@ -37,11 +38,11 @@ public class CaregiversTest {
 
     @BeforeAll
     public static void setup() {
-        String[] workingDays = new String[] {
-                "Monday", "Tuesday", "Wednesday", "Thursday"
+        Days[] workingDays = new Days[] {
+                Days.MONDAY, Days.TUESDAY, Days.THURSDAY, Days.SATURDAY
         };
-        String[] palsHandled = new String[] {
-                Species.DOG.name(),  Species.CAT.name()
+        Species[] palsHandled = new Species[] {
+                Species.DOG,  Species.CAT
         };
         caregiver = new Caregivers(
                 UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,""),
@@ -60,14 +61,14 @@ public class CaregiversTest {
                 0.0,
                 0.0,
                 true,
-                new ArrayList<Pals>(),
+                new ArrayList<>(),
                 CaregiverTypes.GROOMER
         );
     }
 
     @Test
     @TestTransaction
-    void shouldAddCaregiverToDb() {
+    void shouldAddGroomerToDb() {
         Mockito.doCallRealMethod().when(groomersRepositoryMock).persistAndFlush(Mockito.any(Groomers
                 .class));
         caregiversPersistencePort.addGroomer(caregiver);
@@ -78,8 +79,6 @@ public class CaregiversTest {
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }
-
-
 
     @Test
     @TestTransaction

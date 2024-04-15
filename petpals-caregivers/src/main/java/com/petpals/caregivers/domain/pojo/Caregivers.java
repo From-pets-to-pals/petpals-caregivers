@@ -1,7 +1,9 @@
 package com.petpals.caregivers.domain.pojo;
 
+import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.persistence.entities.Pals;
 import com.petpals.shared.entities.CaregiverTypes;
+import com.petpals.shared.entities.Species;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,14 +23,18 @@ public class Caregivers {
     private final String email;
     @NotBlank
     private final String phoneNumber;
+    @NotBlank
     private final String address;
+    @NotBlank
     private final String city;
+    @NotBlank
     private final String zipCode;
+    @NotBlank
     private final String country;
     @NotNull
-    private final String[] workingDays;
+    private final Days[] workingDays;
     @NotNull
-    private final String[] palsHandled;
+    private final Species[] palsHandled;
     @NotNull
     private final boolean homeService;
     @Positive
@@ -39,6 +45,7 @@ public class Caregivers {
     private final List<Pals> clients;
     @NotNull
     private final CaregiverTypes caregiverType;
+
     public Caregivers(
             String reference,
             String firstName,
@@ -49,8 +56,8 @@ public class Caregivers {
             String city,
             String zipCode,
             String country,
-            String[] workingDays,
-            String[] palsHandled,
+            Days[] workingDays,
+            Species[] palsHandled,
             boolean homeService,
             double appointmentDuration,
             double priceRating,
@@ -155,11 +162,11 @@ public class Caregivers {
         return country;
     }
 
-    public String[] getWorkingDays() {
+    public Days[] getWorkingDays() {
         return workingDays;
     }
 
-    public String[] getPalsHandled() {
+    public Species[] getPalsHandled() {
         return palsHandled;
     }
 

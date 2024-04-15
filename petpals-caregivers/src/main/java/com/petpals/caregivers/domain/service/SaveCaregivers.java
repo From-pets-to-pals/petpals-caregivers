@@ -1,6 +1,7 @@
 package com.petpals.caregivers.domain.service;
 
 import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
@@ -11,7 +12,7 @@ import jakarta.validation.Validator;
 import java.util.Set;
 
 @ApplicationScoped
-public class SaveCaregivers {
+public class SaveCaregivers implements CaregiversServicePort {
     CaregiversPersistencePort caregiversPersistencePort;
 
     Validator validator;

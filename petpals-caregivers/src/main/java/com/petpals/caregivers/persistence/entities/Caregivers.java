@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,15 +80,15 @@ public class Caregivers {
     private boolean homeService;
 
     @DecimalMin(value = "0.25")
-    @Column(name="appointment_duration")
+    @Column(name="appointment_duration", columnDefinition = "numeric(1,1) default 0.0")
     private double appointmentDuration;
 
     @DecimalMin(value = "0.0")
-    @Column(name="price rating", columnDefinition = "numeric(1,1) default 2.5")
+    @Column(name="price rating", columnDefinition = "numeric(1,1) default 5.0")
     private double priceRating;
 
     @DecimalMin(value = "0.0")
-    @Column(name="service_rating", columnDefinition = "numeric(1,1) default 2.5")
+    @Column(name="service_rating", columnDefinition = "numeric(1,1) default 5.0")
     private double serviceRating;
 
     @NotNull

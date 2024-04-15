@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.resources;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-class ExampleResourceTest {
+class HealthCheckResourceTest {
     @ConfigProperty(name = "api.key")
     String apiKey;
 
@@ -28,5 +28,4 @@ class ExampleResourceTest {
                 .then()
                 .statusCode(401);
     }
-
 }
