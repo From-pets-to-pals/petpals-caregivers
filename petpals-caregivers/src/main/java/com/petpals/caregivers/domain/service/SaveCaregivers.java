@@ -10,6 +10,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class SaveCaregivers implements CaregiversServicePort {
@@ -45,7 +46,8 @@ public class SaveCaregivers implements CaregiversServicePort {
             }
             return caregiverReference;
         } else {
-            throw new RuntimeException();
+            var violationList = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet());
+            throw new RuntimeException(violationList.toString());
         }
     }
 }
