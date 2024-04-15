@@ -18,6 +18,7 @@ stages:
   jobs:
   - job: PackageAndBuild
     steps:
+    - checkout: petpals-common
     - task: CmdLine@2
       inputs:
         script: ls
