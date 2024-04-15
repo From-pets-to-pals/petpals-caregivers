@@ -10,7 +10,9 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 class ExampleResourceTest {
     @ConfigProperty(name = "api.key")
-    String apiKey;@Test
+    String apiKey;
+
+    @Test
     void testHelloEndpoint() {
         given().header("API-KEY", apiKey)
                 .when().get("/hello")

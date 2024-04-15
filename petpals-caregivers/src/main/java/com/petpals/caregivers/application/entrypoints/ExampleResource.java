@@ -1,4 +1,4 @@
-package com.petpals.caregivers;
+package com.petpals.caregivers.application.entrypoints;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PathParam;

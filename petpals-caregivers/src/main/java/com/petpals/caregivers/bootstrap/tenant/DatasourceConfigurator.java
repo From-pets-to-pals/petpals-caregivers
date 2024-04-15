@@ -28,13 +28,20 @@ import java.time.temporal.ChronoUnit;
 @ApplicationScoped
 @PersistenceUnitExtension
 public class DatasourceConfigurator implements TenantConnectionResolver {
+
     private final Logger LOG = Logger.getLogger(DatasourceConfigurator.class);
+
     TransactionManager transactionManager;
+
+
     TransactionSynchronizationRegistry transactionSynchronizationRegistry;
+
     @ConfigProperty(name = "azure.tenantid")
     String tenantId;
+
     @ConfigProperty(name = "azure.secret")
     String secret;
+
     @ConfigProperty(name = "azure.clientid")
     String clientId;
 

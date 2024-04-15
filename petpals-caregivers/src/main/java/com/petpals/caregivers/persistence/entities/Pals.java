@@ -11,14 +11,15 @@ import java.util.List;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "pals")
 public class Pals {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = SEQUENCE, generator = "pals_generator")
     @Column(name = "pal_id")
-    //@SequenceGenerator(name="pals_SEQ")
+    @SequenceGenerator(name="pals_generator", sequenceName = "pals_seq", allocationSize = 1)
     private Long id;
 
     @NotNull

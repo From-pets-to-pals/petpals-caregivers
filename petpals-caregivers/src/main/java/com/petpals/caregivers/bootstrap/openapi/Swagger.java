@@ -1,4 +1,4 @@
-package com.petpals.caregivers.bootstrap;
+package com.petpals.caregivers.bootstrap.openapi;
 
 import jakarta.ws.rs.core.Application;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;

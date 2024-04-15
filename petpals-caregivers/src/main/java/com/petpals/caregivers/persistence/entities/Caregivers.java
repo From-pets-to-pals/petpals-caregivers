@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,34 +19,50 @@ import java.util.Objects;
 @DiscriminatorColumn(name="caregiver_type",
         discriminatorType = DiscriminatorType.INTEGER)
 public class Caregivers {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caregivers_generator")
+    @SequenceGenerator(name = "caregivers_generator", sequenceName = "caregivers_seq", allocationSize = 1 )
     @Column(name="caregiver_id")
-    private long caregiverId;
+    private Long caregiverId;
+
+    @NotBlank
+    @Column(name = "reference")
+    private String reference;
+
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
+
     @NotBlank
     @Column(name="last_name")
     private String lastName;
+
     @Email
     @Column(name="email")
+    @UniqueElements
     private String email;
+
     @NotBlank
     @Column(name="phone_number")
     private String phoneNumber;
+
     @NotBlank
     @Column(name="address")
     private String address;
+
     @NotBlank
     @Column(name="city")
     private String city;
+
     @NotBlank
     @Column(name="zip_code")
     private String zipCode;
+
     @NotBlank
     @Column(name="country")
     private String country;
+
     @Type(StringArrayType.class)
     @Column(
             name = "working_days",
@@ -92,6 +109,7 @@ public class Caregivers {
     }
 
     public Caregivers(
+            String reference,
             String firstName,
             String lastName,
             String email,
@@ -103,10 +121,10 @@ public class Caregivers {
             String[] workingDays,
             String[] palsHandled,
             boolean homeService,
-            CaregiverTypes caregiverType,
             double appointmentDuration,
             double priceRating,
             double serviceRating) {
+        this.reference = reference;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -124,7 +142,8 @@ public class Caregivers {
         this.isSubscribed = false;
     }
 
-    public Caregivers createOne(String firstName,
+    public Caregivers createOne(String reference,
+                                String firstName,
                                 String lastName,
                                 String email,
                                 String phoneNumber,
@@ -140,6 +159,7 @@ public class Caregivers {
                                 double priceRating,
                                 double serviceRating){
         return new Caregivers(
+                reference,
                 firstName,
                 lastName,
                 email,
@@ -151,7 +171,6 @@ public class Caregivers {
                 workingDays,
                 palsHandled,
                 homeService,
-                caregiverType,
                 appointmentDuration,
                 priceRating,
                 serviceRating);
@@ -196,11 +215,11 @@ public class Caregivers {
                 '}';
     }
 
-    public long getCaregiverId() {
+    public Long getCaregiverId() {
         return caregiverId;
     }
 
-    public void setCaregiverId(long caregiverId) {
+    public void setCaregiverId(Long caregiverId) {
         this.caregiverId = caregiverId;
     }
 
@@ -330,5 +349,13 @@ public class Caregivers {
 
     public void setClients(List<Pals> clients) {
         this.clients = clients;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 }
