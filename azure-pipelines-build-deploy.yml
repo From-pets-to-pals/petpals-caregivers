@@ -15,9 +15,9 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          'git config --global "credential.https://github.com.username FlowerInTheRain"'
-          'git config --global "credential.https://github.com.password" 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'
-          'git clone "https://github.com/From-pets-to-pals/petpals-common.git"'
+          git config --global user.name FlowerInTheRain
+          git config --global user.password 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
+          git clone https://github.com/From-pets-to-pals/petpals-common.git
     - task: ExtractFiles@1
       inputs:
         archiveFilePatterns: 'apache-maven-3.9.6-bin.zip'
