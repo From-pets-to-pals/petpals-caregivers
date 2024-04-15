@@ -3,6 +3,13 @@ trigger:
 
 name: caregivers-$(Build.BuildId)
 
+resources:
+  repositories:
+  - repository: petpals-common # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: FlowerInTheRain
+    name: From-pets-to-pals/petpals-common
+
 stages:
 - stage: Build
   displayName: Build stage
@@ -12,11 +19,6 @@ stages:
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
-    - task: CmdLine@2
-      inputs:
-        script: |
-          git config --global user.name From-pets-to-pals
-          git clone https://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@github.com/From-pets-to-pals/petpals-common.git
     - task: ExtractFiles@1
       inputs:
         archiveFilePatterns: 'apache-maven-3.9.6-bin.zip'
