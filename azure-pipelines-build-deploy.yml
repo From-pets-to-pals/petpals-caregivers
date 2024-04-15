@@ -12,6 +12,11 @@ stages:
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
+    - task: CmdLine@2
+      inputs:
+        script: 'git clone https://github.com/From-pets-to-pals/petpals-common.git'
+    
+
     - task: ExtractFiles@1
       inputs:
         archiveFilePatterns: 'apache-maven-3.9.6-bin.zip'
@@ -21,6 +26,18 @@ stages:
         versionSpec: '17'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
+    - task: Maven@3
+      inputs:
+        mavenPomFile: '$(Build.SourcesDirectory)/petpals-common/petpals-common/pom.xml'
+        goals: 'clean install'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Path'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
+        mavenSetM2Home: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
     - task: Maven@3
       inputs:
         mavenPomFile: '$(APP_NAME)/pom.xml'
