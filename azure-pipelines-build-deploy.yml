@@ -16,6 +16,7 @@ stages:
   jobs:
   - job: PackageAndBuild
     steps:
+    - checkout: petpals-common
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
