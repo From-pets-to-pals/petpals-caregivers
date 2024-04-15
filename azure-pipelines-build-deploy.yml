@@ -49,7 +49,7 @@ stages:
         sonarQubeRunAnalysis: false
     - task: Maven@3
       inputs:
-        mavenPomFile: '$(APP_NAME)/$(APP_NAME)/pom.xml'
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/pom.xml'
         goals: 'clean package'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
