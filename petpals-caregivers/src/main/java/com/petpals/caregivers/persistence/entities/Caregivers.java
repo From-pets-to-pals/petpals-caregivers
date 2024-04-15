@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name="caregivers")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="caregiver_type",
-        discriminatorType = DiscriminatorType.INTEGER)
+        discriminatorType = DiscriminatorType.STRING)
 public class Caregivers {
 
     @Id
@@ -40,7 +40,6 @@ public class Caregivers {
 
     @Email
     @Column(name="email")
-    @UniqueElements
     private String email;
 
     @NotBlank
@@ -154,7 +153,6 @@ public class Caregivers {
                                 String[] workingDays,
                                 String[] palsHandled,
                                 boolean homeService,
-                                CaregiverTypes caregiverType,
                                 double appointmentDuration,
                                 double priceRating,
                                 double serviceRating){

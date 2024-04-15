@@ -1,38 +1,35 @@
 package com.petpals.caregivers.persistence.repository;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.petpals.caregivers.persistence.entities.CaregiverTypes;
 import com.petpals.caregivers.persistence.entities.Caregivers;
-import com.petpals.caregivers.persistence.entities.CaregiversRepository;
-import com.petpals.caregivers.persistence.entities.services.CaregiversPersistence;
+import com.petpals.caregivers.persistence.entities.Groomers;
+import com.petpals.caregivers.persistence.repositories.GroomersRepository;
+import com.petpals.caregivers.persistence.services.CaregiversPersistence;
 import com.petpals.shared.entities.Species;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
 import io.quarkus.test.InjectMock;
-import io.quarkus.test.Mock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.transaction.annotations.Rollback;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mockito;
 
 @QuarkusTest
 public class CaregiversTest {
 
     @InjectMock
-    CaregiversRepository caregiversRepositoryMock;
+    GroomersRepository groomersRepositoryMock;
     @Inject
     CaregiversPersistence caregiversPersistence;
 
-    public static Caregivers caregiver;
+    public static Groomers caregiver;
 
-    ArgumentCaptor<Caregivers> caregiversArgumentCaptor = ArgumentCaptor.forClass(Caregivers.class);
+    ArgumentCaptor<Groomers> caregiversArgumentCaptor = ArgumentCaptor.forClass(Groomers.class);
+
     @BeforeAll
     public static void setup() {
         String[] workingDays = new String[] {
@@ -41,11 +38,11 @@ public class CaregiversTest {
         String[] palsHandled = new String[] {
                 Species.DOG.name(),  Species.CAT.name()
         };
-        var toUse = new Caregivers(
+        caregiver = new Groomers(
                 UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,""),
                 "Sid",
                 "Bennaceur",
-                "sa.bennaceur@gmaill.com",
+                "sa.bennaceur@test-db.com",
                 "0764017528",
                 "101, rue des Acquevilles",
                 "Suresnes",
@@ -58,16 +55,29 @@ public class CaregiversTest {
                 0.0,
                 0.0
         );
-        caregiver = toUse;
     }
 
     @Test
     @TestTransaction
     void shouldAddCaregiverToDb() {
-        Mockito.doCallRealMethod().when(caregiversRepositoryMock).persist(caregiver);
-        caregiversPersistence.saveCaregiver(caregiver);
-        Mockito.verify(caregiversRepositoryMock).persist(caregiversArgumentCaptor.capture());
-        Assertions.assertNotNull(caregiversArgumentCaptor.getValue().getCaregiverId());
+        Mockito.doCallRealMethod().when(groomersRepositoryMock).persistAndFlush(caregiver);
+        caregiversPersistence.saveGroomer(caregiver);
+        Mockito.verify(groomersRepositoryMock).persistAndFlush(caregiversArgumentCaptor.capture());
+        Mockito.doCallRealMethod().when(groomersRepositoryMock).find("email","sa.bennaceur@test-db.com");
+        Caregivers caregiverFromDb = groomersRepositoryMock.find("email","sa.bennaceur@test-db.com").firstResult();
+        Assertions.assertNotNull(caregiverFromDb);
+        Assertions.assertEquals(caregiversArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
+        Assertions.assertEquals(caregiversArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
+    }
+
+
+
+    @Test
+    @TestTransaction
+    void shouldThrowConstraintViolationExceptionWhenAddCaregiverToDb() {
+        Mockito.doThrow(ConstraintViolationException.class).when(groomersRepositoryMock).persistAndFlush(caregiver);
+        Assertions.assertThrows(RuntimeException.class, () -> caregiversPersistence.saveGroomer(caregiver));
+        Mockito.verify(groomersRepositoryMock).persistAndFlush(caregiversArgumentCaptor.capture());
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }
 }
