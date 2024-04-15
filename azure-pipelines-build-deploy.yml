@@ -1,7 +1,16 @@
+
+resources:
+  repositories:
+  - repository: petpals-common # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: FlowerInTheRain
+    name: From-pets-to-pals/petpals-common
+
 trigger:
 - main
 
 name: caregivers-$(Build.BuildId)
+
 
 stages:
 - stage: Build
@@ -9,6 +18,11 @@ stages:
   jobs:
   - job: PackageAndBuild
     steps:
+    - checkout: petpals-common
+    - checkout: self
+    - task: CmdLine@2
+      inputs:
+        script: ls
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
@@ -23,7 +37,19 @@ stages:
         jdkSourceOption: 'PreInstalled'
     - task: Maven@3
       inputs:
-        mavenPomFile: '$(APP_NAME)/pom.xml'
+        mavenPomFile: '$(Build.SourcesDirectory)/petpals-common/petpals-common/pom.xml'
+        goals: 'clean install'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Path'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
+        mavenSetM2Home: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+    - task: Maven@3
+      inputs:
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/pom.xml'
         goals: 'clean package'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
