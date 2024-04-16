@@ -19,7 +19,10 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 > - local sonarqube server (not mandatory)
 
 !! To run the project localy without docker, you need to set the quarkus.http.port/host to 127.0.0.1 and any available port ,and the azure key vault credentials as environment variable (cli argument or register thee variables in your OS) as in the image below !!
-![img.png](readme-resources/quarkus-local-settings.png)
+
+![Local settings example with maven](readme-resources/quarkus-local-settings-with-maven-goal.png)
+![Local settings example with @QuarkusApplication run + env file](readme-resources/quarkus-local-settings-with-env-file.png)
+![Local settings example with run all test in Java + env file](readme-resources/quarkus-local-settings-test-run-env-file.png)
 
 ## <b>Running the application in dev mode</b>
 
