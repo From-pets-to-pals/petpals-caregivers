@@ -18,6 +18,8 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 > - Intellij Ultimate
 > - local sonarqube server (not mandatory)
 
+!! To run the project localy without docker, you need to set the quarkus.http.port/host to 127.0.0.1 and any available port ,and the azure key vault credentials as environment variable (cli argument or register thee variables in your OS) as in the image below !!
+![img.png](readme-resources/quarkus-local-settings.png)
 
 ## <b>Running the application in dev mode</b>
 
