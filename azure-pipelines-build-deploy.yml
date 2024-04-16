@@ -54,8 +54,6 @@ stages:
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        codeCoverageToolOption: 'JaCoCo'
-        codeCoverageClassFilter: '-:**.application.dto.*.java,-:**.persistence.entities.*.jav'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
         mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
