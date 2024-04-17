@@ -4,8 +4,8 @@ import org.apache.http.HttpStatus;
 
 public enum DBExceptionsEnum {
     DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION(
-            "A duplication error on caregiver email occured",
-            HttpStatus.SC_METHOD_FAILURE);
+            "User already exists.",
+            HttpStatus.SC_NOT_ACCEPTABLE);
 
     private final String message;
 
