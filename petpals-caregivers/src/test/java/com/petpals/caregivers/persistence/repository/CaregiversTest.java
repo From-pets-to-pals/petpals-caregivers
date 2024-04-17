@@ -75,6 +75,7 @@ class CaregiversTest {
         Mockito.verify(groomersRepositoryMock).persistAndFlush(caregiversArgumentCaptor.capture());
         Mockito.doCallRealMethod().when(groomersRepositoryMock).find("email","sa.bennaceur@test-db.com");
         Groomers caregiverFromDb = groomersRepositoryMock.find("email","sa.bennaceur@test-db.com").firstResult();
+        Mockito.verify(groomersRepositoryMock).find("email","sa.bennaceur@test-db.com");
         Assertions.assertNotNull(caregiverFromDb);
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
         Assertions.assertEquals(caregiversArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
