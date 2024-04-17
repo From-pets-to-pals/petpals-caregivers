@@ -10,8 +10,6 @@ import org.jboss.logging.Logger;
 
 @Provider
 public class InboundInterceptor implements ContainerRequestFilter {
-    private final Logger LOG = Logger.getLogger(InboundInterceptor.class);
-
     @ConfigProperty(name = "api.key")
     String apiKey;
     @Override
