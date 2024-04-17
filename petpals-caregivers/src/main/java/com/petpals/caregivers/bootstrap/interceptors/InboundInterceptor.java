@@ -16,7 +16,6 @@ public class InboundInterceptor implements ContainerRequestFilter {
     String apiKey;
     @Override
     public void filter(ContainerRequestContext context) {
-        LOG.info(context.getRequest().toString());
         if (context.getHeaderString("API-KEY") == null || !context.getHeaderString("API-KEY").equals(apiKey)) {
             context.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         }
