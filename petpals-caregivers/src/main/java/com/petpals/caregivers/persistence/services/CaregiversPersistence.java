@@ -1,7 +1,8 @@
 package com.petpals.caregivers.persistence.services;
 
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
+import com.petpals.caregivers.persistence.entities.Caregivers;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.entities.Trainers;
 import com.petpals.caregivers.persistence.entities.Vets;
@@ -35,7 +36,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {DBPersistenceException.class}, value = Transactional.TxType.REQUIRED)
-    public void addGroomer(Caregivers caregiver) {
+    public void addGroomer(CreateCaregiverCommand caregiver) {
         Groomers toSave = new Groomers();
         mapCaregiversFromDomain(caregiver,toSave);
         try {
@@ -50,7 +51,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {DBPersistenceException.class})
-    public void addVet(Caregivers caregiver) {
+    public void addVet(CreateCaregiverCommand caregiver) {
         Vets toSave = new Vets();
         mapCaregiversFromDomain(caregiver,toSave);
         try {
@@ -65,7 +66,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {DBPersistenceException.class})
-    public void addTrainer(Caregivers caregiver) {
+    public void addTrainer(CreateCaregiverCommand caregiver) {
         Trainers toSave = new Trainers();
         mapCaregiversFromDomain(caregiver,toSave);
         try {
@@ -79,7 +80,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         LOG.info("Trainer added : "+ toSave);
     }
 
-    private void mapCaregiversFromDomain(Caregivers from, com.petpals.caregivers.persistence.entities.Caregivers to) {
+    private void mapCaregiversFromDomain(CreateCaregiverCommand from, Caregivers to) {
         to.setCaregiverId(null);
         to.setFirstName(from.getFirstName());
         to.setLastName(from.getLastName());
@@ -88,7 +89,6 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         to.setCity(from.getCity());
         to.setZipCode(from.getZipCode());
         to.setCountry(from.getCountry());
-        to.setClients(from.getClients());
         to.setEmail(from.getEmail());
         to.setHomeService(from.isHomeService());
         to.setReference(from.getReference());
@@ -97,7 +97,6 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         to.setWorkingDays(daysToStringArray);
         String[] palsToStringArray = Arrays.stream(from.getPalsHandled()).map(item -> item.name()).toArray(String[]::new);
         to.setPalsHandled(palsToStringArray);
-        to.setClients(from.getClients());
         to.setPriceRating(from.getPriceRating());
         to.setServiceRating(from.getServiceRating());
         to.setSubscribed(from.isSubscribed());

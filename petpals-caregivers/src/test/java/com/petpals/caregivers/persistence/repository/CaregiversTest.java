@@ -1,7 +1,7 @@
 package com.petpals.caregivers.persistence.repository;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.errorhandling.DBPersistenceException;
@@ -32,7 +32,7 @@ class CaregiversTest {
     @Inject
     CaregiversPersistencePort caregiversPersistencePort;
 
-    public static Caregivers caregiver;
+    public static CreateCaregiverCommand caregiver;
 
     ArgumentCaptor<Groomers> caregiversArgumentCaptor = ArgumentCaptor.forClass(Groomers.class);
 
@@ -44,7 +44,7 @@ class CaregiversTest {
         Species[] palsHandled = new Species[] {
                 Species.DOG,  Species.CAT
         };
-        caregiver = new Caregivers(
+        caregiver = new CreateCaregiverCommand(
                 UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,""),
                 "Sid",
                 "Bennaceur",

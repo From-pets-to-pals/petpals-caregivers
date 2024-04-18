@@ -1,6 +1,6 @@
 package com.petpals.caregivers.domain.service;
 
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
@@ -23,12 +23,12 @@ public class SaveCaregivers implements CaregiversServicePort {
         this.validator = validator;
     }
 
-    public String addCaregiver(Caregivers caregiver) {
+    public String addCaregiver(CreateCaregiverCommand caregiver) {
         String caregiverReference = UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,"");
         if(caregiver.getReference() == null){
             caregiver.setReference(caregiverReference);
         }
-        Set<ConstraintViolation<Caregivers>> violations = validator.validate(caregiver);
+        Set<ConstraintViolation<CreateCaregiverCommand>> violations = validator.validate(caregiver);
         if (violations.isEmpty()) {
             caregiver.setSubscribed(false);
             caregiver.setPriceRating(5.0);

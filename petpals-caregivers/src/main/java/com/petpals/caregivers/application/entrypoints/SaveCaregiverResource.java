@@ -1,7 +1,7 @@
 package com.petpals.caregivers.application.entrypoints;
 
 import com.petpals.caregivers.application.dto.CreateCaregiver;
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.application.mappers.CreateCaregiverMapper;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -17,37 +17,18 @@ public class SaveCaregiverResource {
     private final Logger LOG = Logger.getLogger(SaveCaregiverResource.class);
 
     CaregiversServicePort caregiversServicePort;
-
-    public SaveCaregiverResource(CaregiversServicePort caregiversServicePort) {
+    CreateCaregiverMapper createCaregiverMapper;
+    public SaveCaregiverResource(CaregiversServicePort caregiversServicePort, CreateCaregiverMapper createCaregiverMapper) {
         this.caregiversServicePort = caregiversServicePort;
+        this.createCaregiverMapper = createCaregiverMapper;
     }
 
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String addCaregiver(CreateCaregiver careviger) {
-        LOG.info(String.format("Received request to add caregiver: %s", careviger));
-        Caregivers caregivers = new Caregivers(
-                null,
-                careviger.firstName(),
-                careviger.lastName(),
-                careviger.email(),
-                careviger.phoneNumber(),
-                careviger.address(),
-                careviger.city(),
-                careviger.zipCode(),
-                careviger.country(),
-                careviger.workingDays(),
-                careviger.palsHandled(),
-                careviger.homeService(),
-                careviger.appointmentDuration(),
-                careviger.priceRating(),
-                careviger.serviceRating(),
-                careviger.isSubscribed(),
-                null,
-                careviger.caregiverType()
-                );
-        return caregiversServicePort.addCaregiver(caregivers);
+    public String addCaregiver(CreateCaregiver caregiver) {
+        LOG.info(String.format("Received request to add caregiver: %s", caregiver));
+        return caregiversServicePort.addCaregiver(createCaregiverMapper.toDomain(caregiver));
     }
 }

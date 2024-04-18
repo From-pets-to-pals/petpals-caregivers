@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petpals.caregivers.application.dto.CreateCaregiver;
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
@@ -31,7 +31,7 @@ class SaveCaregiverResourceTest {
     @Test
     void testAddCaregiver() throws JsonProcessingException {
         var uuid = UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,"");
-        Mockito.when(caregiversServicePort.addCaregiver(Mockito.any(Caregivers.class))).thenReturn(uuid);
+        Mockito.when(caregiversServicePort.addCaregiver(Mockito.any(CreateCaregiverCommand.class))).thenReturn(uuid);
         var createCaregiver = new CreateCaregiver(
                 "Sid",
                 "Bennaceur",
