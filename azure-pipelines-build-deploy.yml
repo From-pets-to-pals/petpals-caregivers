@@ -54,6 +54,7 @@ stages:
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        codeCoverageToolOption: 'JaCoCo'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
         mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
@@ -61,6 +62,10 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/target/jacoco-repport/jacoco.xml'
+        failIfCoverageEmpty: true
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
