@@ -1,7 +1,6 @@
 package com.petpals.caregivers.persistence.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -66,67 +65,37 @@ public class Pals {
 
     @ManyToMany(mappedBy = "clients")
     private List<Caregivers> caregivers;
-    public Pals() {
-    }
-
-    public Pals(String name,
-                @NotBlank String ICADIdentifier,
-                Owners owner,
-                Date birthDate,
-                @NotBlank String specie,
-                @NotBlank String breed,
-                @NotBlank String palReference,
-                boolean hasPassport,
-                @NotNull boolean isMale,
-                boolean isSterilized,
-                boolean isVaccinated,
-                Date nextVaccine,
-                Date nextPlannedApp) {
-        this.name = name;
-        this.icadidentifier = ICADIdentifier;
-        this.owner = owner;
-        this.birthDate = birthDate;
-        this.specie = specie;
-        this.breed = breed;
-        this.palReference = palReference;
-        this.hasPassport = hasPassport;
-        this.isMale = isMale;
-        this.isSterilized = isSterilized;
-        this.isVaccinated = isVaccinated;
-        this.nextVaccine = nextVaccine;
-        this.nextPlannedApp = nextPlannedApp;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pals pals = (Pals) o;
-        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && name.equals(pals.name) && icadidentifier.equals(pals.icadidentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && specie.equals(pals.specie) && breed.equals(pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && palReference.equals(pals.palReference);
+        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && Objects.equals(name, pals.name) && Objects.equals(shortname, pals.shortname) && Objects.equals(icadidentifier, pals.icadidentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && Objects.equals(specie, pals.specie) && Objects.equals(breed, pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && Objects.equals(palReference, pals.palReference) && Objects.equals(caregivers, pals.caregivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, icadidentifier, owner, birthDate, specie, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference);
+        return Objects.hash(id, name, shortname, icadidentifier, owner, birthDate, specie, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference, caregivers);
     }
 
     @Override
     public String toString() {
         return "Pals{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", ICADIdentifier='" + icadidentifier + '\'' +
-                ", owner=" + owner +
-                ", birthDate=" + birthDate +
-                ", specie='" + specie + '\'' +
-                ", breed='" + breed + '\'' +
-                ", hasPassport=" + hasPassport +
-                ", isMale=" + isMale +
-                ", isSterilized=" + isSterilized +
-                ", isVaccinated=" + isVaccinated +
-                ", nextVaccine=" + nextVaccine +
-                ", nextPlannedApp=" + nextPlannedApp +
-                ", palReference='" + palReference + '\'' +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", ICADIdentifier='" + getICADIdentifier() + '\'' +
+                ", owner=" + getOwner() +
+                ", birthDate=" + getBirthDate() +
+                ", specie='" + getSpecie() + '\'' +
+                ", breed='" + getBreed() + '\'' +
+                ", hasPassport=" + isHasPassport() +
+                ", isMale=" + isMale() +
+                ", isSterilized=" + isSterilized() +
+                ", isVaccinated=" + isVaccinated() +
+                ", nextVaccine=" + getNextVaccine() +
+                ", nextPlannedApp=" + getNextPlannedApp() +
+                ", palReference='" + getPalReference() + '\'' +
                 '}';
     }
 

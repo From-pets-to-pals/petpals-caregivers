@@ -1,7 +1,7 @@
 package com.petpals.caregivers.domain.ports.in;
 
-import com.petpals.caregivers.domain.pojo.Caregivers;
+import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 
 public interface CaregiversServicePort {
-    String addCaregiver(Caregivers caregiver);
+    String addCaregiver(CreateCaregiverCommand caregiver);
 }

@@ -1,4 +1,4 @@
-package com.petpals.caregivers.resources;
+package com.petpals.caregivers.application.entrypoints;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,6 +19,16 @@ class HealthCheckResourceTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello RESTEasy"));
+    }
+
+    @Test
+    void testHelloWithNameEndpoint() {
+        final String name = "Sid";
+        given().header("API-KEY", apiKey)
+                .when().get(String.format("/hello/%s", name))
+                .then()
+                .statusCode(200)
+                .body(is(String.format("Hello %s",name)));
     }
 
     @Test
