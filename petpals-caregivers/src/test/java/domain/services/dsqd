@@ -1,0 +1,1 @@
+-:**.persistence.repositories.*,-:**.bootstrap.application.*,-:**.bootstrap.openapi.*,-:**.persistence.entities.Groomers,-:**.persistence.entities.Trainers,-:**.persistence.entities.Vets
