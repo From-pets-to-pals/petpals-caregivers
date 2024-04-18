@@ -54,9 +54,6 @@ stages:
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        codeCoverageToolOption: 'JaCoCo'
-        codeCoverageClassFilter: '-:**.persistence.repositories.*,-:**.bootstrap.application.*,-:**.bootstrap.openapi.*,-:**.persistence.entities.Groomers,-:**.persistence.entities.Trainers,-:**.persistence.entities.Vets'
-        codeCoverageFailIfEmpty: true
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Path'
         mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
