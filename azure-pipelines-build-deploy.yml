@@ -61,6 +61,10 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
+        failIfCoverageEmpty: true
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
