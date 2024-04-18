@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class CreateCaregiverCommand {
@@ -46,7 +45,7 @@ public class CreateCaregiverCommand {
     private double serviceRating;
     private boolean isSubscribed;
     @NotNull
-    private final CaregiverTypes caregiverType;
+    private CaregiverTypes caregiverType;
 
     public CreateCaregiverCommand(
             String reference,
@@ -65,7 +64,6 @@ public class CreateCaregiverCommand {
             double priceRating,
             double serviceRating,
             boolean isSubscribed,
-            List<Pals> clients,
             CaregiverTypes caregiverType
     ) {
         this.reference = reference;
@@ -92,33 +90,34 @@ public class CreateCaregiverCommand {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateCaregiverCommand that = (CreateCaregiverCommand) o;
-        return Double.compare(priceRating, that.priceRating) == 0 && homeService == that.homeService && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Objects.equals(city, that.city) && Objects.equals(email, that.email) && Objects.equals(address, that.address) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.equals(lastName, that.lastName) && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled);
+        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && caregiverType == that.caregiverType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reference, firstName, lastName, email, phoneNumber, address, city, zipCode, country, Arrays.hashCode(workingDays), Arrays.hashCode(palsHandled), homeService, appointmentDuration, priceRating, serviceRating, isSubscribed);
+        return Objects.hash(reference, firstName, lastName, email, phoneNumber, address, city, zipCode, country, Arrays.hashCode(workingDays), Arrays.hashCode(palsHandled), homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, caregiverType);
     }
 
     @Override
     public String toString() {
         return "Caregivers{" +
-                "reference='" + reference + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", country='" + country + '\'' +
-                ", workingDays=" + Arrays.toString(workingDays) +
-                ", palsHandled=" + Arrays.toString(palsHandled) +
-                ", homeService=" + homeService +
-                ", appointmentDuration=" + appointmentDuration +
-                ", priceRating=" + priceRating +
-                ", serviceRating=" + serviceRating +
-                ", isSubscribed=" + isSubscribed +
+                "reference='" + getReference() + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", address='" + getAddress() + '\'' +
+                ", city='" + getCity() + '\'' +
+                ", zipCode='" + getZipCode() + '\'' +
+                ", country='" + getCountry() + '\'' +
+                ", workingDays=" + Arrays.toString(getWorkingDays()) +
+                ", palsHandled=" + Arrays.toString(getPalsHandled()) +
+                ", homeService=" + isHomeService() +
+                ", appointmentDuration=" + getAppointmentDuration() +
+                ", priceRating=" + getPriceRating() +
+                ", serviceRating=" + getServiceRating() +
+                ", isSubscribed=" + isSubscribed() +
+                ", caregiverType=" + getCaregiverType() +
                 '}';
     }
 
@@ -197,6 +196,10 @@ public class CreateCaregiverCommand {
 
     public CaregiverTypes getCaregiverType() {
         return caregiverType;
+    }
+
+    public void setCaregiverType(CaregiverTypes caregiverType) {
+        this.caregiverType = caregiverType;
     }
 
     public void setPriceRating(double priceRating) {

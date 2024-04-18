@@ -106,79 +106,12 @@ public class Caregivers {
     public Caregivers() {
     }
 
-    public Caregivers(
-            String reference,
-            String firstName,
-            String lastName,
-            String email,
-            String phoneNumber,
-            String address,
-            String city,
-            String zipCode,
-            String country,
-            String[] workingDays,
-            String[] palsHandled,
-            boolean homeService,
-            double appointmentDuration,
-            double priceRating,
-            double serviceRating) {
-        this.reference = reference;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.country = country;
-        this.workingDays = workingDays;
-        this.palsHandled = palsHandled;
-        this.homeService = homeService;
-        this.appointmentDuration = appointmentDuration;
-        this.priceRating = priceRating;
-        this.serviceRating = serviceRating;
-        this.isSubscribed = false;
-    }
-
-    public Caregivers createOne(String reference,
-                                String firstName,
-                                String lastName,
-                                String email,
-                                String phoneNumber,
-                                String address,
-                                String city,
-                                String zipCode,
-                                String country,
-                                String[] workingDays,
-                                String[] palsHandled,
-                                boolean homeService,
-                                double appointmentDuration,
-                                double priceRating,
-                                double serviceRating){
-        return new Caregivers(
-                reference,
-                firstName,
-                lastName,
-                email,
-                phoneNumber,
-                address,
-                city,
-                zipCode,
-                country,
-                workingDays,
-                palsHandled,
-                homeService,
-                appointmentDuration,
-                priceRating,
-                serviceRating);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Caregivers that = (Caregivers) o;
-        return caregiverId == that.caregiverId && homeService == that.homeService && Double.compare(that.appointmentDuration, appointmentDuration) == 0 && Double.compare(that.priceRating, priceRating) == 0 && Double.compare(that.serviceRating, serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(firstName, that.firstName) && lastName.equals(that.lastName) && email.equals(that.email) && phoneNumber.equals(that.phoneNumber) && address.equals(that.address) && city.equals(that.city) && zipCode.equals(that.zipCode) && country.equals(that.country) && Arrays.equals(workingDays, that.workingDays) && Arrays.equals(palsHandled, that.palsHandled) && Objects.equals(clients, that.clients);
+        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(caregiverId, that.caregiverId) && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && Objects.equals(clients, that.clients);
     }
 
     @Override
@@ -192,23 +125,23 @@ public class Caregivers {
     @Override
     public String toString() {
         return "Caregivers{" +
-                "caregiverId=" + caregiverId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", country='" + country + '\'' +
-                ", workingDays=" + Arrays.toString(workingDays) +
-                ", palsHandled=" + Arrays.toString(palsHandled) +
-                ", homeService=" + homeService +
-                ", appointmentDuration=" + appointmentDuration +
-                ", priceRating=" + priceRating +
-                ", serviceRating=" + serviceRating +
+                "caregiverId=" + getCaregiverId() +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", address='" + getAddress() + '\'' +
+                ", city='" + getCity() + '\'' +
+                ", zipCode='" + getZipCode() + '\'' +
+                ", country='" + getCountry() + '\'' +
+                ", workingDays=" + Arrays.toString(getWorkingDays()) +
+                ", palsHandled=" + Arrays.toString(getPalsHandled()) +
+                ", homeService=" + isHomeService() +
+                ", appointmentDuration=" + getAppointmentDuration() +
+                ", priceRating=" + getPriceRating() +
+                ", serviceRating=" + getServiceRating() +
                 ", isSubscribed=" + isSubscribed +
-                ", clients=" + clients +
+                ", clients=" + getClients() +
                 '}';
     }
 

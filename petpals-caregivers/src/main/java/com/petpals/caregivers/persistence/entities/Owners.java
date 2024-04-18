@@ -37,35 +37,29 @@ public class Owners {
     public Owners() {
     }
 
-    public Owners(String mail, String device, String reference, String location) {
-        this.mail = mail;
-        this.device = device;
-        this.reference = reference;
-        this.location = location;
-    }
-
     @Override
     public String toString() {
         return "Owners{" +
-                "id=" + id +
-                ", mail='" + mail + '\'' +
-                ", device='" + device + '\'' +
-                ", reference='" + reference + '\'' +
-                ", location='" + location + '\'' +
+                "id=" + getId() +
+                ", mail='" + getMail() + '\'' +
+                ", device='" + getDevice() + '\'' +
+                ", reference='" + getReference() + '\'' +
+                ", location='" + getLocation() + '\'' +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Owners owners = (Owners) o;
-        return Objects.equals(id, owners.id) && mail.equals(owners.mail) && Objects.equals(device, owners.device) && reference.equals(owners.reference);
+        return Objects.equals(id, owners.id) && Objects.equals(mail, owners.mail) && Objects.equals(device, owners.device) && Objects.equals(reference, owners.reference) && Objects.equals(location, owners.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mail, device, reference);
+        return Objects.hash(id, mail, device, reference, location);
     }
 
     public Long getId() {

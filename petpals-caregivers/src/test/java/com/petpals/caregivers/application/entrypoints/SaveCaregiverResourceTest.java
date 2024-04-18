@@ -1,4 +1,4 @@
-package com.petpals.caregivers.resources;
+package com.petpals.caregivers.application.entrypoints;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,5 +60,6 @@ class SaveCaregiverResourceTest {
                 .then()
                 .statusCode(200)
                 .body(is(uuid));
+
     }
 }

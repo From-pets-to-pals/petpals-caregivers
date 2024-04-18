@@ -5,15 +5,19 @@ import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
+import com.petpals.shared.errorhandling.ApplicationExceptions;
+import com.petpals.shared.errorhandling.ExceptionsEnum;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.jboss.logging.Logger;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class SaveCaregivers implements CaregiversServicePort {
+    private static final Logger LOGGER = Logger.getLogger(SaveCaregivers.class);
     CaregiversPersistencePort caregiversPersistencePort;
 
     Validator validator;
@@ -46,8 +50,8 @@ public class SaveCaregivers implements CaregiversServicePort {
             }
             return caregiverReference;
         } else {
-            var violationList = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet());
-            throw new RuntimeException(violationList.toString());
+            LOGGER.info(violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet()).toString());
+            throw new ApplicationExceptions(ExceptionsEnum.CREATE_CAREGIVER_SERVICE_INDALID_COMMAND);
         }
     }
 }
