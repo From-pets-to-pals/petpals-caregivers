@@ -16,7 +16,7 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          git clone git@github.com://github.com/From-pets-to-pals/petpals-common.git
+          git clone https://github.com/From-pets-to-pals/petpals-common.git
     - task: CmdLine@2
       inputs:
         script: ls
