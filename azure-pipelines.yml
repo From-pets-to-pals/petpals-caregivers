@@ -16,8 +16,8 @@ stages:
     - task: CmdLine@2
       inputs:
         script: |
-          git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
-          git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
+          git clone https://petpals-dev:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
+          git clone https://petpals-dev:$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
           ls
           cp -r petpals-conf/dev/caregivers/resources petpals-caregivers/src/main
           ls petpals-caregivers/src/main/resources
