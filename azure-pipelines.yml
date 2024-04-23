@@ -17,6 +17,7 @@ stages:
       inputs:
         script: |
           git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
+          git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
           ls -R petpals-caregivers
           ls
     - task: CmdLine@2
@@ -45,7 +46,7 @@ stages:
         sonarQubeRunAnalysis: false
     - task: Maven@3
       inputs:
-        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/pom.xml'
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
         goals: 'clean package'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
