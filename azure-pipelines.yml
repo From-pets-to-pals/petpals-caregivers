@@ -18,10 +18,9 @@ stages:
         script: |
           git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
           git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
-          ls -R petpals-caregivers
           ls
-          cp petpals-conf/dev/caregivers/resources petpals-caregivers/src/main
-          ls petpals-caregivers/src/main
+          cp -r petpals-conf/dev/caregivers/resources petpals-caregivers/src/main
+          ls petpals-caregivers/src/main/resources
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
