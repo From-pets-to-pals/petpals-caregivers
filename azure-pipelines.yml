@@ -1,14 +1,4 @@
 
-resources:
-  repositories:
-  - repository: petpals-common # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: FlowerInTheRain
-    name: From-pets-to-pals/petpals-common
-  - repository: petpals-conf # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: FlowerInTheRain
-    name: From-pets-to-pals/petpals-conf
 trigger:
 - main
 
@@ -21,8 +11,10 @@ stages:
   jobs:
   - job: PackageAndBuild
     steps:
-    - checkout: petpals-common
     - checkout: self
+    - task: CmdLine@2
+      inputs:
+        script: 'git clone https://github.com/From-pets-to-pals/petpals-common.git'
     - task: CmdLine@2
       inputs:
         script: ls
