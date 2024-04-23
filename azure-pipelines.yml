@@ -12,10 +12,10 @@ stages:
   - job: PackageAndBuild
     steps:
     - checkout: self
+      persistCredentials: true
     - task: CmdLine@2
       inputs:
         script: |
-          git config --global user.name "FlowerInTheRain"
           git clone git@github.com://github.com/From-pets-to-pals/petpals-common.git
     - task: CmdLine@2
       inputs:
