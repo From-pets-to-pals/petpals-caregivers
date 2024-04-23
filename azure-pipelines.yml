@@ -17,9 +17,9 @@ stages:
       inputs:
         script: |
           git clone https://FlowerInTheRain:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
-    - task: CmdLine@2
-      inputs:
-        script: ls
+          ls
+          cd petpals-caregivers
+          LS
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
