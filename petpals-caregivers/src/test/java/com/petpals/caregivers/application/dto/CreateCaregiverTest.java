@@ -2,13 +2,9 @@ package com.petpals.caregivers.application.dto;
 
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
-import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@QuarkusTest
-@Tag("TestSuite1")
 class CreateCaregiverTest {
     @Test
      void shouldCheckObjectsIntegrity(){
@@ -50,7 +46,5 @@ class CreateCaregiverTest {
         );
         Assertions.assertEquals(createCaregiver.hashCode(), checkEquality.hashCode());
         Assertions.assertEquals(createCaregiver, checkEquality);
-
-
     }
 }

@@ -185,7 +185,7 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-            <maven.home>3.9.6</maven.home>
+            <maven.home>{maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
       </plugin>
