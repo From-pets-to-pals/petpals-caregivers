@@ -14,8 +14,8 @@ stages:
     - checkout: self
     - task: CmdLine@2
       inputs:
-        script: 
-          git config --global user.name "FlowerInTheRain"
+        script: |
+          git config --global user.name FlowerInTheRain
           git clone https://github.com/From-pets-to-pals/petpals-common.git
     - task: CmdLine@2
       inputs:
