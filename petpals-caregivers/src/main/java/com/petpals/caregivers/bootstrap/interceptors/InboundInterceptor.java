@@ -1,5 +1,7 @@
 package com.petpals.caregivers.bootstrap.interceptors;
 
+import com.petpals.shared.errorhandling.ApplicationExceptions;
+import com.petpals.shared.errorhandling.ExceptionsEnum;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.core.Context;
@@ -8,6 +10,7 @@ import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
+import org.jboss.resteasy.spi.ApplicationException;
 
 
 @Provider
@@ -18,11 +21,11 @@ public class InboundInterceptor implements ContainerRequestFilter {
     UriInfo uriInfo;
     @Override
     public void filter(ContainerRequestContext context) {
-        if(uriInfo.getPath().startsWith("/hello")){
-            return;
-        }
         if (context.getHeaderString("API-KEY") == null || !context.getHeaderString("API-KEY").equals(apiKey)) {
-            context.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+            if(uriInfo.getPath().equals("/hello")){
+                return;
+            }
+            throw new ApplicationExceptions(ExceptionsEnum.CAREGIVER_MIDDLEWARE_MISSING_API_KEY);
         }
     }
 }

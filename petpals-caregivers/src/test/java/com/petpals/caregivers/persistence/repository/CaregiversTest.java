@@ -14,6 +14,9 @@ import com.petpals.shared.entities.uuid.UUIDGenerator;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
 import com.petpals.shared.errorhandling.ApplicationExceptions;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.hibernate.orm.panache.runtime.PanacheQueryImpl;
+import io.quarkus.panache.mock.PanacheMock;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -80,9 +83,10 @@ class CaregiversTest {
                 .class));
         caregiversPersistencePort.addGroomer(caregiver);
         Mockito.verify(groomersRepositoryMock).persistAndFlush(groomersArgumentCaptor.capture());
-        Mockito.doCallRealMethod().when(groomersRepositoryMock).find("email","sa.bennaceur@test-db.com");
-        Groomers caregiverFromDb = groomersRepositoryMock.find("email","sa.bennaceur@test-db.com").firstResult();
-        Mockito.verify(groomersRepositoryMock).find("email","sa.bennaceur@test-db.com");
+        Groomers toReturn = groomersArgumentCaptor.getValue();
+        Mockito.when(groomersRepositoryMock.findOne("email","sa.bennaceur@test-db-groomer.com")).thenReturn(toReturn);
+        Groomers caregiverFromDb = groomersRepositoryMock.findOne("email","sa.bennaceur@test-db-groomer.com");
+        Mockito.verify(groomersRepositoryMock).findOne("email","sa.bennaceur@test-db-groomer.com");
         Assertions.assertNotNull(caregiverFromDb);
         Assertions.assertEquals(groomersArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
         Assertions.assertEquals(groomersArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
@@ -96,9 +100,10 @@ class CaregiversTest {
                 .class));
         caregiversPersistencePort.addVet(caregiver);
         Mockito.verify(vetsRepositoryMock).persistAndFlush(vetsArgumentCaptor.capture());
-        Mockito.doCallRealMethod().when(vetsRepositoryMock).find("email","sa.bennaceur@test-db.com");
-        Vets caregiverFromDb = vetsRepositoryMock.find("email","sa.bennaceur@test-db.com").firstResult();
-        Mockito.verify(vetsRepositoryMock).find("email","sa.bennaceur@test-db.com");
+        Vets toReturn = vetsArgumentCaptor.getValue();
+        Mockito.when(vetsRepositoryMock.findOne("email","sa.bennaceur@test-db-vet.com")).thenReturn(toReturn);
+        Vets caregiverFromDb = vetsRepositoryMock.findOne("email","sa.bennaceur@test-db-vet.com");
+        Mockito.verify(vetsRepositoryMock).findOne("email","sa.bennaceur@test-db-vet.com");
         Assertions.assertNotNull(caregiverFromDb);
         Assertions.assertEquals(vetsArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
         Assertions.assertEquals(vetsArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
@@ -107,13 +112,16 @@ class CaregiversTest {
     @Test
     @TestTransaction
     void shouldAddTrainerToDb() {
+
+        caregiver.setCaregiverType(CaregiverTypes.TRAINER);
         Mockito.doCallRealMethod().when(trainersRepositoryMock).persistAndFlush(Mockito.any(Trainers
                 .class));
         caregiversPersistencePort.addTrainer(caregiver);
         Mockito.verify(trainersRepositoryMock).persistAndFlush(trainersArgumentCaptor.capture());
-        Mockito.doCallRealMethod().when(trainersRepositoryMock).find("email","sa.bennaceur@test-db.com");
-        Trainers caregiverFromDb = trainersRepositoryMock.find("email","sa.bennaceur@test-db.com").firstResult();
-        Mockito.verify(trainersRepositoryMock).find("email","sa.bennaceur@test-db.com");
+        Trainers toReturn = trainersArgumentCaptor.getValue();
+        Mockito.when(trainersRepositoryMock.findOne("email","sa.bennaceur@test-db-trainer.com")).thenReturn(toReturn);
+        Trainers caregiverFromDb = trainersRepositoryMock.findOne("email","sa.bennaceur@test-db-trainer.com");
+        Mockito.verify(trainersRepositoryMock).findOne("email","sa.bennaceur@test-db-trainer.com");
         Assertions.assertNotNull(caregiverFromDb);
         Assertions.assertEquals(trainersArgumentCaptor.getValue().getEmail(), caregiver.getEmail());
         Assertions.assertEquals(trainersArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());

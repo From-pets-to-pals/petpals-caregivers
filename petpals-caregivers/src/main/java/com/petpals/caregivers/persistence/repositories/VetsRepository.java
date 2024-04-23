@@ -6,5 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class VetsRepository implements PanacheRepository<Vets> {
-
+    public Vets findOne(String param, String value){
+            return find(param,value).firstResult();
+    }
 }

@@ -1,6 +1,7 @@
 package com.petpals.caregivers.application.entrypoints;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.Headers;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,8 @@ class HealthCheckResourceTest {
     @Test
     void testNoApiKey() {
         given()
-                .when().get("/hello")
+                .headers(new Headers())
+                .when().get("/hello/sid")
                 .then()
                 .statusCode(401);
     }

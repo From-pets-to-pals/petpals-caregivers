@@ -37,13 +37,15 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         var mappedEntity = caregiversMapper.toGroomer(caregiver);
         try {
             groomersRepository.persistAndFlush(mappedEntity);
+            LOG.info("Groomer added : "+ mappedEntity);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
-                LOG.error(exc.toString());
+                LOG.info(exc.getConstraintName());
+                LOG.info(exc.getErrorMessage());
+
             }
             throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
-        LOG.info("Groomer added : "+ mappedEntity);
     }
 
     @Transactional(rollbackOn = {ApplicationExceptions.class})
@@ -51,13 +53,13 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         var mappedEntity = caregiversMapper.toVet(caregiver);
         try {
             vetsRepository.persistAndFlush(mappedEntity);
+            LOG.info("Vet added : "+ mappedEntity);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());
             }
             throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
-        LOG.info("Vet added : "+ mappedEntity);
     }
 
     @Transactional(rollbackOn = {ApplicationExceptions.class})
@@ -65,13 +67,13 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         var mappedEntity = caregiversMapper.toTrainer(caregiver);
         try {
             trainersRepository.persistAndFlush(mappedEntity);
+            LOG.info("Trainer added : "+ mappedEntity);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());
             }
             throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
-        LOG.info("Trainer added : "+ mappedEntity);
     }
 
 }

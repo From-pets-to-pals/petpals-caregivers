@@ -1,8 +1,10 @@
-package com.petpals.caregivers.bootstrap;
+package com.petpals.caregivers.bootstrap.interceptors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petpals.shared.errorhandling.ApplicationExceptions;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
