@@ -25,7 +25,7 @@ public class InboundInterceptor implements ContainerRequestFilter {
             if(uriInfo.getPath().equals("/hello")){
                 return;
             }
-            throw new ApplicationExceptions(ExceptionsEnum.CAREGIVER_MIDDLEWARE_MISSING_API_KEY);
+            throw new ApplicationExceptions(ExceptionsEnum.CAREGIVER_MISSING_API_KEY);
         }
     }
 }
