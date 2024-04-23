@@ -1,16 +1,7 @@
-
-resources:
-  repositories:
-  - repository: petpals-common # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: FlowerInTheRain
-    name: From-pets-to-pals/petpals-common
-
 trigger:
 - main
 
 name: caregivers-$(Build.BuildId)
-
 
 stages:
 - stage: Build
@@ -18,11 +9,16 @@ stages:
   jobs:
   - job: PackageAndBuild
     steps:
-    - checkout: petpals-common
     - checkout: self
+      persistCredentials: true
     - task: CmdLine@2
       inputs:
-        script: ls
+        script: |
+          git clone https://petpals-dev:$(PAT)@github.com/From-pets-to-pals/petpals-common.git
+          git clone https://petpals-dev:$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
+          ls
+          cp -r petpals-conf/dev/caregivers/resources petpals-caregivers/src/main
+          ls petpals-caregivers/src/main/resources
     - task: CmdLine@2
       inputs:
         script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
@@ -49,7 +45,7 @@ stages:
         sonarQubeRunAnalysis: false
     - task: Maven@3
       inputs:
-        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/pom.xml'
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
         goals: 'clean package'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID)'
         publishJUnitResults: true
@@ -63,12 +59,12 @@ stages:
         sonarQubeRunAnalysis: false
     - task: PublishCodeCoverageResults@2
       inputs:
-        summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
+        summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
         failIfCoverageEmpty: true
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/$(APP_NAME)/target'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/target'
         Contents: '$(APP_NAME)-runner.jar'
         TargetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishBuildArtifacts@1
