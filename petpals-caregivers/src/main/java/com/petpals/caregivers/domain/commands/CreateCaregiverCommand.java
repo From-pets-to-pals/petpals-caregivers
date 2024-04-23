@@ -1,7 +1,6 @@
 package com.petpals.caregivers.domain.commands;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.persistence.entities.Pals;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
 import jakarta.validation.constraints.Email;

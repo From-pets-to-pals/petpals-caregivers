@@ -4,9 +4,11 @@ import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
+@Tag("TestSuite1")
 class CreateCaregiverTest {
     @Test
      void shouldCheckObjectsIntegrity(){
