@@ -4,24 +4,18 @@ import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
-import com.petpals.caregivers.persistence.entities.Trainers;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
-import com.petpals.shared.errorhandling.ApplicationExceptions;
+import com.petpals.shared.errorhandling.PetPalsExceptions;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @QuarkusTest
 class SaveCaregiversServiceTest {
@@ -103,6 +97,6 @@ class SaveCaregiversServiceTest {
     @TestTransaction
     void shouldThrowException() {
         createCaregiverCommand.setCaregiverType(null);
-        Assertions.assertThrows(ApplicationExceptions.class, () -> caregiversServicePort.addCaregiver(createCaregiverCommand));
+        Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversServicePort.addCaregiver(createCaregiverCommand));
     }
 }

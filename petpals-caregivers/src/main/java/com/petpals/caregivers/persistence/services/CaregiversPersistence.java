@@ -6,8 +6,8 @@ import com.petpals.caregivers.persistence.mappers.CaregiversMapper;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
 import com.petpals.caregivers.persistence.repositories.TrainersRepository;
 import com.petpals.caregivers.persistence.repositories.VetsRepository;
-import com.petpals.shared.errorhandling.ApplicationExceptions;
 import com.petpals.shared.errorhandling.ExceptionsEnum;
+import com.petpals.shared.errorhandling.PetPalsExceptions;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import org.hibernate.exception.ConstraintViolationException;
@@ -32,7 +32,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
         this.caregiversMapper = caregiversMapper;
     }
 
-    @Transactional(rollbackOn = {ApplicationExceptions.class}, value = Transactional.TxType.REQUIRED)
+    @Transactional(rollbackOn = {PetPalsExceptions.class}, value = Transactional.TxType.REQUIRED)
     public void addGroomer(CreateCaregiverCommand caregiver) {
         var mappedEntity = caregiversMapper.toGroomer(caregiver);
         try {
@@ -44,11 +44,11 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
                 LOG.info(exc.getErrorMessage());
 
             }
-            throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
+            throw new PetPalsExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
     }
 
-    @Transactional(rollbackOn = {ApplicationExceptions.class})
+    @Transactional(rollbackOn = {PetPalsExceptions.class})
     public void addVet(CreateCaregiverCommand caregiver) {
         var mappedEntity = caregiversMapper.toVet(caregiver);
         try {
@@ -58,11 +58,11 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());
             }
-            throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
+            throw new PetPalsExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
     }
 
-    @Transactional(rollbackOn = {ApplicationExceptions.class})
+    @Transactional(rollbackOn = {PetPalsExceptions.class})
     public void addTrainer(CreateCaregiverCommand caregiver) {
         var mappedEntity = caregiversMapper.toTrainer(caregiver);
         try {
@@ -72,7 +72,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());
             }
-            throw new ApplicationExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
+            throw new PetPalsExceptions(ExceptionsEnum.DB_UNIQUE_KEY_CAREGIVER_MAIL_CONSTRAINT_VIOLATION);
         }
     }
 

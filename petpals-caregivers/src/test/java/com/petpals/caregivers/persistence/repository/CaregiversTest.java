@@ -13,7 +13,7 @@ import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
-import com.petpals.shared.errorhandling.ApplicationExceptions;
+import com.petpals.shared.errorhandling.PetPalsExceptions;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -129,7 +129,7 @@ class CaregiversTest {
     void shouldThrowConstraintViolationExceptionWhenAddCaregiverToDb() {
         //Groomers
         Mockito.doThrow(ConstraintViolationException.class).when(groomersRepositoryMock).persistAndFlush(Mockito.any(Groomers.class));
-        Assertions.assertThrows(ApplicationExceptions.class, () -> caregiversPersistencePort.addGroomer(caregiver));
+        Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addGroomer(caregiver));
         Mockito.verify(groomersRepositoryMock).persistAndFlush(groomersArgumentCaptor.capture());
         Assertions.assertEquals(groomersArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }
@@ -139,7 +139,7 @@ class CaregiversTest {
     void shouldThrowConstraintViolationExceptionWhenAddVetsToDb() {
         //Groomers
         Mockito.doThrow(ConstraintViolationException.class).when(vetsRepositoryMock).persistAndFlush(Mockito.any(Vets.class));
-        Assertions.assertThrows(ApplicationExceptions.class, () -> caregiversPersistencePort.addVet(caregiver));
+        Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addVet(caregiver));
         Mockito.verify(vetsRepositoryMock).persistAndFlush(vetsArgumentCaptor.capture());
         Assertions.assertEquals(vetsArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }
@@ -149,7 +149,7 @@ class CaregiversTest {
     void shouldThrowConstraintViolationExceptionWhenAddTrainerToDb() {
         //Groomers
         Mockito.doThrow(ConstraintViolationException.class).when(trainersRepositoryMock).persistAndFlush(Mockito.any(Trainers.class));
-        Assertions.assertThrows(ApplicationExceptions.class, () -> caregiversPersistencePort.addTrainer(caregiver));
+        Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addTrainer(caregiver));
         Mockito.verify(trainersRepositoryMock).persistAndFlush(trainersArgumentCaptor.capture());
         Assertions.assertEquals(trainersArgumentCaptor.getValue().getFirstName(), caregiver.getFirstName());
     }

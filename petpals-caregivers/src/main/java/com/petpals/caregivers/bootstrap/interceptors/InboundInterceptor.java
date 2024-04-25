@@ -1,7 +1,7 @@
 package com.petpals.caregivers.bootstrap.interceptors;
 
-import com.petpals.shared.errorhandling.ApplicationExceptions;
 import com.petpals.shared.errorhandling.ExceptionsEnum;
+import com.petpals.shared.errorhandling.PetPalsExceptions;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.core.Context;
@@ -25,7 +25,7 @@ public class InboundInterceptor implements ContainerRequestFilter {
             if(uriInfo.getPath().equals("/hello")){
                 return;
             }
-            throw new ApplicationExceptions(ExceptionsEnum.CAREGIVER_MISSING_API_KEY);
+            throw new PetPalsExceptions(ExceptionsEnum.CAREGIVERS_MISSING_API_KEY);
         }
     }
 }

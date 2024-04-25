@@ -5,8 +5,8 @@ import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
-import com.petpals.shared.errorhandling.ApplicationExceptions;
 import com.petpals.shared.errorhandling.ExceptionsEnum;
+import com.petpals.shared.errorhandling.PetPalsExceptions;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -51,7 +51,7 @@ public class SaveCaregivers implements CaregiversServicePort {
             return caregiverReference;
         } else {
             LOGGER.info(violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet()).toString());
-            throw new ApplicationExceptions(ExceptionsEnum.CREATE_CAREGIVER_SERVICE_INDALID_COMMAND);
+            throw new PetPalsExceptions(ExceptionsEnum.CAREGIVERS_SERVICE_INVALID_COMMAND);
         }
     }
 }
