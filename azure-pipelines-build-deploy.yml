@@ -57,6 +57,19 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: Maven@4
+      inputs:
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
+        goals: 'clean package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        options: '-Dsonar.projectKey=From-pets-to-pals_petpals-caregivers -Dsonar.token=$(SONAR_TOKEN) -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=from-pets-to-pals -Dsonar.qualitygate.wait=true'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Path'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
+        mavenSetM2Home: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
     - task: PublishCodeCoverageResults@2
       inputs:
         summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
