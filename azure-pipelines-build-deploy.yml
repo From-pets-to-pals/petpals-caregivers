@@ -59,22 +59,22 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-    - task: Maven@4
-      displayName: SonarQube analysis 
+    - task: SonarQubePrepare@5
       inputs:
-        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
-        goals: 'sonar:sonar'
-        options: '-Dsonar.token=$(SONAR_TOKEN) -Dsonar.qualitygate.wait=true'
-        publishJUnitResults: false
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Path'
-        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
-        mavenSetM2Home: true
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: true
-        sqMavenPluginVersionChoice: 'latest'
+        SonarQube: 'petpals-apps'
+        scannerMode: 'Other'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner, 
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.organization=from-pets-to-pals
+          sonar.project.key=From-pets-to-pals_petpals-caregiver
+    - task: SonarQubeAnalyze@5
+      inputs:
+        jdkversion: 'JAVA_HOME_17_X64'
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '500'
     - task: PublishCodeCoverageResults@2
       inputs:
         summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
