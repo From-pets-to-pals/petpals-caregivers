@@ -19,7 +19,7 @@
     <surefire-plugin.version>3.2.5</surefire-plugin.version>
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <sonar.project.key>From-pets-to-pals_petpals-caregivers</sonar.project.key>
+    <sonar.projectKey>From-pets-to-pals_petpals-caregivers</sonar.projectKey>
     <sonar.organization>from-pets-to-pals</sonar.organization>
   </properties>
   <dependencyManagement>
