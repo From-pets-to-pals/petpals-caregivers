@@ -1,4 +1,4 @@
-package domain.services;
+package com.petpals.caregivers.domain.services;
 
 import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;

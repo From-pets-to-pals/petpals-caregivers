@@ -1,4 +1,4 @@
-package domain.services.pojo;
+package com.petpals.caregivers.domain.services.pojo;
 
 import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
