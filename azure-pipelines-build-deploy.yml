@@ -37,7 +37,7 @@ stages:
         scannerMode: 'Other'
         extraProperties: |
           sonar.organization=from-pets-to-pals
-          sonar.project.key=From-pets-to-pals_petpals-caregiver
+          sonar.project.key=com.petpals.caregivers:petpals-caregivers
     - task: Maven@4
       displayName: Clean Package petpals-common 
       inputs:
