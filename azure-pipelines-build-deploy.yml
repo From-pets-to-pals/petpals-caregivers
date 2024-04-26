@@ -31,13 +31,6 @@ stages:
         versionSpec: '17'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
-    - task: SonarQubePrepare@5
-      inputs:
-        SonarQube: 'petpals-apps'
-        scannerMode: 'Other'
-        extraProperties: |
-          sonar.organization=from-pets-to-pals
-          sonar.project.key=com.petpals.caregivers:petpals-caregivers
     - task: Maven@4
       displayName: Clean Package petpals-common 
       inputs:
@@ -71,9 +64,20 @@ stages:
       inputs:
         summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
         failIfCoverageEmpty: true
-    - task: SonarQubePublish@5
+    - task: Maven@4
+      displayName: SonarQube analysis 
       inputs:
-        pollingTimeoutSec: '500'
+        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
+        goals: 'sonar:sonar'
+        options: '-Dsonar.token=$(SONAR_TOKEN) -Dsonar.qualitygate.wait=true'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Path'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
+        mavenSetM2Home: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
   
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
