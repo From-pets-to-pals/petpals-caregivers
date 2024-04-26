@@ -31,6 +31,13 @@ stages:
         versionSpec: '17'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'petpals-apps'
+        scannerMode: 'Other'
+        extraProperties: |
+          sonar.organization=from-pets-to-pals
+          sonar.project.key=From-pets-to-pals_petpals-caregiver
     - task: Maven@4
       displayName: Clean Package petpals-common 
       inputs:
@@ -60,16 +67,6 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
-    - task: SonarQubePrepare@5
-      inputs:
-        SonarQube: 'petpals-apps'
-        scannerMode: 'Other'
-        extraProperties: |
-          # Additional properties that will be passed to the scanner, 
-          # Put one key=value per line, example:
-          # sonar.exclusions=**/*.bin
-          sonar.organization=from-pets-to-pals
-          sonar.project.key=From-pets-to-pals_petpals-caregiver
     - task: SonarQubeAnalyze@5
       inputs:
         jdkversion: 'JAVA_HOME_17_X64'
