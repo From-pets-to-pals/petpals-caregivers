@@ -31,6 +31,13 @@ stages:
         versionSpec: '17'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
+    - task: SonarQubePrepare@5
+      inputs:
+        SonarQube: 'petpals-apps'
+        scannerMode: 'Other'
+        extraProperties: |
+          sonar.organization=from-pets-to-pals
+          sonar.project.key=com.petpals.caregivers:petpals-caregivers
     - task: Maven@4
       displayName: Clean Package petpals-common 
       inputs:
@@ -48,7 +55,7 @@ stages:
       displayName: Clean Verify petpals-caregivers 
       inputs:
         mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
-        goals: 'clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        goals: 'clean verify'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID) -DVAULT=$(VAULT)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -58,27 +65,16 @@ stages:
         mavenSetM2Home: false
         mavenAuthenticateFeed: false
         effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    - task: Maven@4
-      displayName: SonarQube analysis 
-      inputs:
-        mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
-        goals: 'org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
-        options: '-Dsonar.token=$(SONAR_TOKEN) -Dsonar.host.url=https://sonarcloud.io -Dsonar.qualitygate.wait=true'
-        publishJUnitResults: false
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Path'
-        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
-        mavenSetM2Home: true
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
     - task: PublishCodeCoverageResults@2
       inputs:
         summaryFileLocation: '$(Build.SourcesDirectory)/$(APP_NAME)/target/jacoco-report/jacoco.xml'
         failIfCoverageEmpty: true
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '500'
+  
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
