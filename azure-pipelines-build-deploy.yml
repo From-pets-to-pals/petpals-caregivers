@@ -58,7 +58,8 @@ stages:
         mavenSetM2Home: false
         mavenAuthenticateFeed: false
         effectivePomSkip: false
-        sonarQubeRunAnalysis: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
     - task: SonarQubePrepare@5
       inputs:
         SonarQube: 'petpals-apps'
