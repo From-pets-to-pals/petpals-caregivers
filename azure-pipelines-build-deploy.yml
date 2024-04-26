@@ -48,7 +48,7 @@ stages:
       displayName: Clean Verify petpals-caregivers 
       inputs:
         mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
-        goals: 'clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        goals: 'clean verify'
         options: '-DSECRET=$(SECRET) -DTENANT-ID=$(TENANT-ID) -DCLIENT-ID=$(CLIENT-ID) -DVAULT=$(VAULT)'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -63,8 +63,8 @@ stages:
       displayName: SonarQube analysis 
       inputs:
         mavenPomFile: '$(Build.SourcesDirectory)/$(APP_NAME)/pom.xml'
-        goals: 'org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
-        options: '-Dsonar.token=$(SONAR_TOKEN) -Dsonar.host.url=https://sonarcloud.io -Dsonar.qualitygate.wait=true'
+        goals: 'sonar:sonar'
+        options: '-Dsonar.token=$(SONAR_TOKEN) -Dsonar.qualitygate.wait=true'
         publishJUnitResults: false
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
