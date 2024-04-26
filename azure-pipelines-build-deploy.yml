@@ -67,9 +67,6 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
-    - task: SonarQubeAnalyze@5
-      inputs:
-        jdkversion: 'JAVA_HOME_17_X64'
     - task: SonarQubePublish@5
       inputs:
         pollingTimeoutSec: '500'
