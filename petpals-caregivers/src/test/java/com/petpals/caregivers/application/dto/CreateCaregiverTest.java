@@ -46,6 +46,7 @@ class CreateCaregiverTest {
         );
         Assertions.assertEquals(createCaregiver.hashCode(), checkEquality.hashCode());
         Assertions.assertEquals(createCaregiver, checkEquality);
+        Assertions.assertEquals(createCaregiver.toString(), checkEquality.toString());
 
     }
 }

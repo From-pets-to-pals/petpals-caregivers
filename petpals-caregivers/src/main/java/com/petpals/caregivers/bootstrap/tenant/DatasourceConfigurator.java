@@ -33,7 +33,6 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
 
     TransactionManager transactionManager;
 
-
     TransactionSynchronizationRegistry transactionSynchronizationRegistry;
 
     @ConfigProperty(name = "azure.tenantid")
@@ -45,16 +44,17 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
     @ConfigProperty(name = "azure.clientid")
     String clientId;
 
+    @ConfigProperty(name = "azure.vault.url")
+    String keyVaultUrl;
+
     public DatasourceConfigurator(TransactionManager transactionManager, TransactionSynchronizationRegistry transactionSynchronizationRegistry) {
         this.transactionManager = transactionManager;
         this.transactionSynchronizationRegistry = transactionSynchronizationRegistry;
     }
 
-    private final String KEY_VAULT_URI =  "https://petpals-key-vault.vault.azure.net";
-
     private AgroalDataSource createDatasource() {
         SecretClient secretClient = new SecretClientBuilder()
-                .vaultUrl(KEY_VAULT_URI)
+                .vaultUrl(keyVaultUrl)
                 .credential(new ClientSecretCredentialBuilder()
                         .tenantId(tenantId)
                         .clientSecret(secret)
