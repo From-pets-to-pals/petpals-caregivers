@@ -12,6 +12,7 @@ stages:
         buildType: 'specific'
         project: '12e6b272-e75b-4b73-aebc-da22ad6551a2'
         pipeline: '10'
+        specificBuildWithTriggering: true
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         artifactName: '$(APP_NAME)'
