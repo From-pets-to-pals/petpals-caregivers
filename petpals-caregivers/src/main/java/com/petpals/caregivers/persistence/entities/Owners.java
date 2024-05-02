@@ -25,7 +25,7 @@ public class Owners {
     @Column(name = "device", nullable = false)
     private String device;
     @NotBlank
-    @Column(name = "reference", nullable = false)
+    @Column(name = "reference", nullable = false, columnDefinition = "bpchar(36)")
     @UniqueElements
     private String reference;
 
