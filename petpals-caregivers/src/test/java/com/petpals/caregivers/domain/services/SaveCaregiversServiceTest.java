@@ -58,9 +58,9 @@ class SaveCaregiversServiceTest {
         Mockito.verify(caregiversPersistencePort).addGroomer(createCaregiverCommandArgumentCaptor.capture());
         Assertions.assertNotNull(uuid);
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getPriceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getServiceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getCaregiverType(),CaregiverTypes.GROOMER);
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
+        Assertions.assertEquals(CaregiverTypes.GROOMER, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
 
     }
     @Test
@@ -73,9 +73,9 @@ class SaveCaregiversServiceTest {
         Mockito.verify(caregiversPersistencePort).addTrainer(createCaregiverCommandArgumentCaptor.capture());
         Assertions.assertNotNull(uuid);
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getPriceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getServiceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getCaregiverType(),CaregiverTypes.TRAINER);
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
+        Assertions.assertEquals(CaregiverTypes.TRAINER, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
     }
 
     @Test
@@ -88,9 +88,9 @@ class SaveCaregiversServiceTest {
         Mockito.verify(caregiversPersistencePort).addVet(createCaregiverCommandArgumentCaptor.capture());
         Assertions.assertNotNull(uuid);
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getPriceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getServiceRating(),5.0);
-        Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getCaregiverType(),CaregiverTypes.VET);
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
+        Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
+        Assertions.assertEquals(CaregiverTypes.VET, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
     }
 
     @Test

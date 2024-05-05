@@ -1,12 +1,10 @@
 package com.petpals.caregivers.application.entrypoints;
 
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PathParam;
-
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 
 @Path("/hello")
 public class HealthCheckResource {

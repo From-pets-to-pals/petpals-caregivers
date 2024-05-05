@@ -29,7 +29,7 @@ import java.time.temporal.ChronoUnit;
 @PersistenceUnitExtension
 public class DatasourceConfigurator implements TenantConnectionResolver {
 
-    private final Logger LOG = Logger.getLogger(DatasourceConfigurator.class);
+    private static final Logger LOG = Logger.getLogger(DatasourceConfigurator.class);
 
     TransactionManager transactionManager;
 

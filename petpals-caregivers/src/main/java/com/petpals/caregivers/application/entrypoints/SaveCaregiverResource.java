@@ -14,7 +14,7 @@ import org.jboss.logging.Logger;
 @Path("/caregivers")
 @SecurityRequirement(name = "api_key")
 public class SaveCaregiverResource {
-    private final Logger LOG = Logger.getLogger(SaveCaregiverResource.class);
+    private static final Logger LOG = Logger.getLogger(SaveCaregiverResource.class);
 
     CaregiversServicePort caregiversServicePort;
     CreateCaregiverMapper createCaregiverMapper;
