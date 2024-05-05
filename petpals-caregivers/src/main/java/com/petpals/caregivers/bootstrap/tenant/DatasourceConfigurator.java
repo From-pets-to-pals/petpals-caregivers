@@ -38,7 +38,7 @@ public class DatasourceConfigurator implements TenantConnectionResolver {
     @ConfigProperty(name = "azure.tenantid")
     String tenantId;
 
-    @ConfigProperty(name = "azure.secret")
+    @ConfigProperty(name = "azure.tenant.token")
     String secret;
 
     @ConfigProperty(name = "azure.clientid")
