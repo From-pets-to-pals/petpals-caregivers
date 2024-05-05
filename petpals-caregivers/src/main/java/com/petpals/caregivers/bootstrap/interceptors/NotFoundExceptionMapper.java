@@ -13,6 +13,7 @@ import jakarta.ws.rs.ext.Provider;
 public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
     Template error404;
 
+    @Inject
     public NotFoundExceptionMapper(Template error404) {
         this.error404 = error404;
     }
