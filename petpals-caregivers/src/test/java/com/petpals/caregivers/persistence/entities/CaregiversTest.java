@@ -14,7 +14,7 @@ class CaregiversTest {
         caregivers.setAddress("La rue");
         caregivers.setCity("La Ville");
         caregivers.setZipCode("00000");
-        caregivers.setCountry("Country");
+        caregivers.setCountry(new Countries());
         String[] wd = new String[]{"MONDAY"};
         caregivers.setWorkingDays(wd);
         String[] ph = new String[]{"DOG","CAT"};
@@ -33,7 +33,7 @@ class CaregiversTest {
         checkEquality.setAddress("La rue");
         checkEquality.setCity("La Ville");
         checkEquality.setZipCode("00000");
-        checkEquality.setCountry("Country");
+        checkEquality.setCountry(new Countries());
         checkEquality.setWorkingDays(wd);
         checkEquality.setPalsHandled(ph);
         checkEquality.setHomeService(true);
@@ -58,7 +58,7 @@ class CaregiversTest {
         caregivers.setAddress("La rue");
         caregivers.setCity("La Ville");
         caregivers.setZipCode("00000");
-        caregivers.setCountry("Country");
+        caregivers.setCountry(new Countries());
         String[] wd = new String[]{"MONDAY"};
         caregivers.setWorkingDays(wd);
         String[] ph = new String[]{"DOG","CAT"};
@@ -77,7 +77,7 @@ class CaregiversTest {
         checkEquality.setAddress("La rue");
         checkEquality.setCity("La Ville");
         checkEquality.setZipCode("00000");
-        checkEquality.setCountry("Country");
+        checkEquality.setCountry(new Countries());
         checkEquality.setWorkingDays(wd);
         checkEquality.setPalsHandled(ph);
         checkEquality.setHomeService(true);
