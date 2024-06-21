@@ -2,8 +2,9 @@ package com.petpals.caregivers.domain.services.pojo;
 
 import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+
+import com.petpals.shared.model.dto.Specie;
+import com.petpals.shared.model.enums.UserTypes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,13 +22,13 @@ class CreateCaregiverCommandTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
                 5.0,
                 5.0,
                 false,
-                CaregiverTypes.GROOMER
+                UserTypes.GROOMER
         );
 
         CreateCaregiverCommand check = new CreateCaregiverCommand(
@@ -41,13 +42,13 @@ class CreateCaregiverCommandTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
                 5.0,
                 5.0,
                 false,
-                CaregiverTypes.GROOMER
+                UserTypes.GROOMER
         );
         Assertions.assertEquals(createCaregiverCommand.hashCode(), check.hashCode());
         Assertions.assertEquals(createCaregiverCommand, check);
@@ -67,13 +68,13 @@ class CreateCaregiverCommandTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
                 5.0,
                 5.0,
                 false,
-                CaregiverTypes.GROOMER
+                UserTypes.GROOMER
         );
 
         CreateCaregiverCommand check = new CreateCaregiverCommand(
@@ -87,13 +88,13 @@ class CreateCaregiverCommandTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
                 5.0,
                 5.0,
                 false,
-                CaregiverTypes.VET
+                UserTypes.VET
         );
         Assertions.assertNotEquals(createCaregiverCommand.hashCode(), check.hashCode());
         Assertions.assertNotEquals(createCaregiverCommand, check);

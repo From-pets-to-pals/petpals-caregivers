@@ -1,8 +1,8 @@
 package com.petpals.caregivers.domain.commands;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+import com.petpals.shared.model.enums.UserTypes;
+import com.petpals.shared.model.dto.Specie;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,7 +35,7 @@ public class CreateCaregiverCommand {
     @NotNull
     private final Days[] workingDays;
     @NotNull
-    private final Species[] palsHandled;
+    private final Specie[] palsHandled;
     @NotNull
     private final boolean homeService;
     @Positive
@@ -43,8 +43,8 @@ public class CreateCaregiverCommand {
     private double priceRating;
     private double serviceRating;
     private boolean isSubscribed;
-    @NotNull
-    private CaregiverTypes caregiverType;
+
+    private UserTypes userType;
 
     public CreateCaregiverCommand(
             String reference,
@@ -57,13 +57,13 @@ public class CreateCaregiverCommand {
             String zipCode,
             String country,
             Days[] workingDays,
-            Species[] palsHandled,
+            Specie[] palsHandled,
             boolean homeService,
             double appointmentDuration,
             double priceRating,
             double serviceRating,
             boolean isSubscribed,
-            CaregiverTypes caregiverType
+            UserTypes userType
     ) {
         this.reference = reference;
         this.firstName = firstName;
@@ -81,7 +81,7 @@ public class CreateCaregiverCommand {
         this.priceRating = priceRating;
         this.serviceRating = serviceRating;
         this.isSubscribed = isSubscribed;
-        this.caregiverType = caregiverType;
+        this.userType = userType;
     }
 
     @Override
@@ -89,12 +89,12 @@ public class CreateCaregiverCommand {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CreateCaregiverCommand that = (CreateCaregiverCommand) o;
-        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && caregiverType == that.caregiverType;
+        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && userType == that.userType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reference, firstName, lastName, email, phoneNumber, address, city, zipCode, country, Arrays.hashCode(workingDays), Arrays.hashCode(palsHandled), homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, caregiverType);
+        return Objects.hash(reference, firstName, lastName, email, phoneNumber, address, city, zipCode, country, Arrays.hashCode(workingDays), Arrays.hashCode(palsHandled), homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, userType);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class CreateCaregiverCommand {
                 ", priceRating=" + getPriceRating() +
                 ", serviceRating=" + getServiceRating() +
                 ", isSubscribed=" + isSubscribed() +
-                ", caregiverType=" + getCaregiverType() +
+                ", caregiverType=" + getUserType() +
                 '}';
     }
 
@@ -164,7 +164,7 @@ public class CreateCaregiverCommand {
         return workingDays;
     }
 
-    public Species[] getPalsHandled() {
+    public Specie[] getPalsHandled() {
         return palsHandled;
     }
 
@@ -193,12 +193,12 @@ public class CreateCaregiverCommand {
     }
 
 
-    public CaregiverTypes getCaregiverType() {
-        return caregiverType;
+    public UserTypes getUserType() {
+        return this.userType;
     }
 
-    public void setCaregiverType(CaregiverTypes caregiverType) {
-        this.caregiverType = caregiverType;
+    public void setCaregiverType(UserTypes caregiverType) {
+        this.userType = caregiverType;
     }
 
     public void setPriceRating(double priceRating) {

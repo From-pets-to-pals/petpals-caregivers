@@ -4,11 +4,12 @@ import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.entities.Trainers;
 import com.petpals.caregivers.persistence.entities.Vets;
+import com.petpals.shared.utils.EnumMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "cdi")
+@Mapper(uses = EnumMapper.class, componentModel = "cdi")
 
 public interface CaregiversMapper {
     @Mappings(

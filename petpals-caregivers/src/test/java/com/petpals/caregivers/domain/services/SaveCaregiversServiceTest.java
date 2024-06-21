@@ -4,8 +4,8 @@ import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+import com.petpals.shared.model.enums.UserTypes;
+import com.petpals.shared.model.dto.Specie;
 import com.petpals.shared.errorhandling.PetPalsExceptions;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
@@ -41,13 +41,13 @@ class SaveCaregiversServiceTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
                 5.0,
                 5.0,
                 false,
-                CaregiverTypes.GROOMER
+                UserTypes.GROOMER
         );
     }
     @Test
@@ -60,13 +60,13 @@ class SaveCaregiversServiceTest {
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
-        Assertions.assertEquals(CaregiverTypes.GROOMER, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
+        Assertions.assertEquals(UserTypes.GROOMER, createCaregiverCommandArgumentCaptor.getValue().getUserType());
 
     }
     @Test
     @TestTransaction
     void shouldAddTrainerToDb() {
-        createCaregiverCommand.setCaregiverType(CaregiverTypes.TRAINER);
+        createCaregiverCommand.setCaregiverType(UserTypes.TRAINER);
         createCaregiverCommand.setReference(null);
         Mockito.doNothing().when(caregiversPersistencePort).addTrainer(Mockito.any(CreateCaregiverCommand.class));
         String uuid = caregiversServicePort.addCaregiver(createCaregiverCommand);
@@ -75,13 +75,13 @@ class SaveCaregiversServiceTest {
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
-        Assertions.assertEquals(CaregiverTypes.TRAINER, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
+        Assertions.assertEquals(UserTypes.TRAINER, createCaregiverCommandArgumentCaptor.getValue().getUserType());
     }
 
     @Test
     @TestTransaction
     void shouldAddVetToDb() {
-        createCaregiverCommand.setCaregiverType(CaregiverTypes.VET);
+        createCaregiverCommand.setCaregiverType(UserTypes.VET);
         createCaregiverCommand.setReference(null);
         Mockito.doNothing().when(caregiversPersistencePort).addTrainer(Mockito.any(CreateCaregiverCommand.class));
         String uuid = caregiversServicePort.addCaregiver(createCaregiverCommand);
@@ -90,7 +90,7 @@ class SaveCaregiversServiceTest {
         Assertions.assertEquals(createCaregiverCommandArgumentCaptor.getValue().getReference(),uuid);
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getPriceRating());
         Assertions.assertEquals(5.0, createCaregiverCommandArgumentCaptor.getValue().getServiceRating());
-        Assertions.assertEquals(CaregiverTypes.VET, createCaregiverCommandArgumentCaptor.getValue().getCaregiverType());
+        Assertions.assertEquals(UserTypes.VET, createCaregiverCommandArgumentCaptor.getValue().getUserType());
     }
 
     @Test

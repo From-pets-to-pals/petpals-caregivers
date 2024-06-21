@@ -11,9 +11,11 @@ import com.petpals.caregivers.persistence.repositories.TrainersRepository;
 import com.petpals.caregivers.persistence.repositories.VetsRepository;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+
 import com.petpals.shared.errorhandling.PetPalsExceptions;
+import com.petpals.shared.model.dto.Specie;
+import com.petpals.shared.model.enums.SpeciesEnum;
+import com.petpals.shared.model.enums.UserTypes;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
@@ -49,8 +51,8 @@ class CaregiversTest {
         Days[] workingDays = new Days[] {
                 Days.MONDAY, Days.TUESDAY, Days.THURSDAY, Days.SATURDAY
         };
-        Species[] palsHandled = new Species[] {
-                Species.DOG,  Species.CAT
+        Specie[] palsHandled = new Specie[] {
+                new Specie(SpeciesEnum.DOG.name()), new Specie(SpeciesEnum.CAT.name())
         };
         caregiver = new CreateCaregiverCommand(
                 UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,""),
@@ -69,7 +71,7 @@ class CaregiversTest {
                 0.0,
                 0.0,
                 true,
-                CaregiverTypes.GROOMER
+                UserTypes.GROOMER
         );
     }
 
@@ -110,7 +112,7 @@ class CaregiversTest {
     @TestTransaction
     void shouldAddTrainerToDb() {
 
-        caregiver.setCaregiverType(CaregiverTypes.TRAINER);
+        caregiver.setCaregiverType(UserTypes.TRAINER);
         Mockito.doCallRealMethod().when(trainersRepositoryMock).persistAndFlush(Mockito.any(Trainers
                 .class));
         caregiversPersistencePort.addTrainer(caregiver);

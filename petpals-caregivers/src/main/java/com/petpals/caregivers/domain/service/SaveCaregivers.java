@@ -37,7 +37,7 @@ public class SaveCaregivers implements CaregiversServicePort {
             caregiver.setSubscribed(false);
             caregiver.setPriceRating(5.0);
             caregiver.setServiceRating(5.0);
-            switch (caregiver.getCaregiverType()){
+            switch (caregiver.getUserType()){
                 case GROOMER:
                         caregiversPersistencePort.addGroomer(caregiver);
                     break;

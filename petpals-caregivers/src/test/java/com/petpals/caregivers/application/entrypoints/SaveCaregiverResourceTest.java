@@ -8,8 +8,8 @@ import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+import com.petpals.shared.model.enums.UserTypes;
+import com.petpals.shared.model.dto.Specie;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -42,10 +42,10 @@ class SaveCaregiverResourceTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new Specie[]{},
                 false,
                 0.5,
-                CaregiverTypes.GROOMER,
+                UserTypes.GROOMER,
                 false,
                 0.0,
                 0.0
