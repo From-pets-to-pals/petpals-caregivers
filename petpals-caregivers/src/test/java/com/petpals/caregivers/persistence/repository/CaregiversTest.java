@@ -1,8 +1,6 @@
 package com.petpals.caregivers.persistence.repository;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
-import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.caregivers.persistence.entities.Groomers;
 import com.petpals.caregivers.persistence.entities.Trainers;
 import com.petpals.caregivers.persistence.entities.Vets;

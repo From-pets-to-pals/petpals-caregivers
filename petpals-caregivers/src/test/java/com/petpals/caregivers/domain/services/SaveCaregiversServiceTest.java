@@ -1,9 +1,6 @@
 package com.petpals.caregivers.domain.services;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
-import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
-import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
 import com.petpals.shared.errorhandling.PetPalsExceptions;

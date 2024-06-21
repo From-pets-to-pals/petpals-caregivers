@@ -1,7 +1,8 @@
 package com.petpals.caregivers.persistence.services;
 
-import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
-import com.petpals.caregivers.domain.ports.out.CaregiversPersistencePort;
+import com.petpals.caregivers.persistence.entities.Groomers;
+import com.petpals.caregivers.persistence.entities.Trainers;
+import com.petpals.caregivers.persistence.entities.Vets;
 import com.petpals.caregivers.persistence.mappers.CaregiversMapper;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
 import com.petpals.caregivers.persistence.repositories.TrainersRepository;
@@ -23,6 +24,7 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     private final VetsRepository vetsRepository;
 
     private final TrainersRepository trainersRepository;
+
     private final CaregiversMapper caregiversMapper;
 
     public CaregiversPersistence(GroomersRepository groomersRepository, VetsRepository vetsRepository, TrainersRepository trainersRepository, CaregiversMapper caregiversMapper) {
@@ -33,11 +35,10 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {PetPalsExceptions.class}, value = Transactional.TxType.REQUIRED)
-    public void addGroomer(CreateCaregiverCommand caregiver) {
-        var mappedEntity = caregiversMapper.toGroomer(caregiver);
+    public void addGroomer(Groomers caregiver) {
         try {
-            groomersRepository.persistAndFlush(mappedEntity);
-            LOG.info("Groomer added : "+ mappedEntity);
+            groomersRepository.persistAndFlush(caregiver);
+            LOG.info("Groomer added : "+ caregiver);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
                 LOG.info(exc.getConstraintName());
@@ -49,11 +50,10 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {PetPalsExceptions.class})
-    public void addVet(CreateCaregiverCommand caregiver) {
-        var mappedEntity = caregiversMapper.toVet(caregiver);
+    public void addVet(Vets caregiver) {
         try {
-            vetsRepository.persistAndFlush(mappedEntity);
-            LOG.info("Vet added : "+ mappedEntity);
+            vetsRepository.persistAndFlush(caregiver);
+            LOG.info("Vet added : "+ caregiver);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());
@@ -63,11 +63,10 @@ public class CaregiversPersistence implements CaregiversPersistencePort {
     }
 
     @Transactional(rollbackOn = {PetPalsExceptions.class})
-    public void addTrainer(CreateCaregiverCommand caregiver) {
-        var mappedEntity = caregiversMapper.toTrainer(caregiver);
+    public void addTrainer(Trainers caregiver) {
         try {
-            trainersRepository.persistAndFlush(mappedEntity);
-            LOG.info("Trainer added : "+ mappedEntity);
+            trainersRepository.persistAndFlush(caregiver);
+            LOG.info("Trainer added : "+ caregiver);
         } catch (ConstraintViolationException exc){
             if(LOG.isInfoEnabled()){
                 LOG.error(exc.toString());

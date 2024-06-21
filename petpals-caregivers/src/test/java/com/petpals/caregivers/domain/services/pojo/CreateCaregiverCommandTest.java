@@ -1,7 +1,6 @@
 package com.petpals.caregivers.domain.services.pojo;
 
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
 import com.petpals.shared.enums.CaregiverTypes;
 import com.petpals.shared.enums.Species;
 import org.junit.jupiter.api.Assertions;

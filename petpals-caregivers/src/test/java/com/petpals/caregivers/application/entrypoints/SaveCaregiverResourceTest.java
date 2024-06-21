@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petpals.caregivers.application.dto.CreateCaregiver;
 import com.petpals.caregivers.application.dto.Days;
-import com.petpals.caregivers.domain.commands.CreateCaregiverCommand;
-import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
 import com.petpals.shared.entities.uuid.UUIDFormatter;
 import com.petpals.shared.entities.uuid.UUIDGenerator;
 import com.petpals.shared.enums.CaregiverTypes;

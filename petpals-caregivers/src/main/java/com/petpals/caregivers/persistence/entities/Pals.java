@@ -37,11 +37,8 @@ public class Pals {
     @Column(name = "birthdate")
     private Date birthDate;
     @NotNull
-    @Column(name="specie", nullable = false)
-    private String specie;
-    @NotNull
     @Column(name="breed", nullable = false)
-    private String breed;
+    private Short breed;
 
     @Column(name="has_passport")
     private boolean hasPassport;
@@ -71,12 +68,12 @@ public class Pals {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pals pals = (Pals) o;
-        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && Objects.equals(name, pals.name) && Objects.equals(shortname, pals.shortname) && Objects.equals(icadidentifier, pals.icadidentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && Objects.equals(specie, pals.specie) && Objects.equals(breed, pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && Objects.equals(palReference, pals.palReference) && Objects.equals(caregivers, pals.caregivers);
+        return hasPassport == pals.hasPassport && isMale == pals.isMale && isSterilized == pals.isSterilized && isVaccinated == pals.isVaccinated && Objects.equals(id, pals.id) && Objects.equals(name, pals.name) && Objects.equals(shortname, pals.shortname) && Objects.equals(icadidentifier, pals.icadidentifier) && Objects.equals(owner, pals.owner) && Objects.equals(birthDate, pals.birthDate) && Objects.equals(breed, pals.breed) && Objects.equals(nextVaccine, pals.nextVaccine) && Objects.equals(nextPlannedApp, pals.nextPlannedApp) && Objects.equals(palReference, pals.palReference) && Objects.equals(caregivers, pals.caregivers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, shortname, icadidentifier, owner, birthDate, specie, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference, caregivers);
+        return Objects.hash(id, name, shortname, icadidentifier, owner, birthDate, breed, hasPassport, isMale, isSterilized, isVaccinated, nextVaccine, nextPlannedApp, palReference, caregivers);
     }
 
     @Override
@@ -87,7 +84,6 @@ public class Pals {
                 ", ICADIdentifier='" + getICADIdentifier() + '\'' +
                 ", owner=" + getOwner() +
                 ", birthDate=" + getBirthDate() +
-                ", specie='" + getSpecie() + '\'' +
                 ", breed='" + getBreed() + '\'' +
                 ", hasPassport=" + isHasPassport() +
                 ", isMale=" + isMale() +
@@ -135,19 +131,12 @@ public class Pals {
         this.birthDate = birthDate;
     }
 
-    public String getSpecie() {
-        return specie;
-    }
 
-    public void setSpecie(String specie) {
-        this.specie = specie;
-    }
-
-    public String getBreed() {
+    public Short getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
+    public void setBreed(Short breed) {
         this.breed = breed;
     }
 

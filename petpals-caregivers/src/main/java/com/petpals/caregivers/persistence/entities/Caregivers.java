@@ -57,9 +57,9 @@ public class Caregivers {
     @Column(name="zip_code")
     private String zipCode;
 
-    @NotBlank
-    @Column(name="country")
-    private String country;
+    @OneToOne
+    @JoinColumn(name = "country")
+    private Countries country;
 
     @Type(StringArrayType.class)
     @Column(
@@ -209,11 +209,11 @@ public class Caregivers {
         this.zipCode = zipCode;
     }
 
-    public String getCountry() {
+    public Countries getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Countries country) {
         this.country = country;
     }
 

@@ -1,14 +1,15 @@
 package com.petpals.caregivers.application.dto;
 
 
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+
+import com.petpals.shared.model.enums.CaregiverTypes;
+import com.petpals.shared.model.enums.SpeciesEnum;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 public record CreateCaregiver(String firstName, String lastName, String email, String phoneNumber, String address,
-                              String city, String zipCode, String country, Days[] workingDays, Species[] palsHandled,
+                              String city, String zipCode, String country, Days[] workingDays, SpeciesEnum[] palsHandled,
                               boolean homeService, double appointmentDuration,
                               CaregiverTypes caregiverType, boolean isSubscribed, double serviceRating,
                               double priceRating) {
