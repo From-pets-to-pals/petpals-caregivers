@@ -2,6 +2,7 @@ package com.petpals.caregivers.persistence.repository;
 
 import com.petpals.caregivers.application.dto.Days;
 import com.petpals.caregivers.persistence.entities.*;
+import com.petpals.caregivers.persistence.repositories.CountriesRepository;
 import com.petpals.caregivers.persistence.repositories.GroomersRepository;
 import com.petpals.caregivers.persistence.repositories.TrainersRepository;
 import com.petpals.caregivers.persistence.repositories.VetsRepository;
@@ -11,6 +12,7 @@ import com.petpals.shared.entities.uuid.UUIDGenerator;
 import com.petpals.shared.errorhandling.PetPalsExceptions;
 import com.petpals.shared.model.enums.SpeciesEnum;
 import io.quarkus.test.InjectMock;
+import io.quarkus.test.Mock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
@@ -34,6 +36,8 @@ class CaregiversTest {
     VetsRepository vetsRepositoryMock;
     @InjectMock
     TrainersRepository trainersRepositoryMock;
+    @InjectMock
+    CountriesRepository countriesRepository;
     @Inject
     CaregiversPersistencePort caregiversPersistencePort;
 
@@ -61,7 +65,7 @@ class CaregiversTest {
         caregiver.setCity("Suresnes");
         caregiver.setZipCode( "92150");
         var country = new Countries();
-        country.setId((short)2);
+        country.setName("France");
         caregiver.setCountry(country);
         caregiver.setWorkingDays(workingDays);
         caregiver.setPalsHandled(palsHandled);
@@ -73,6 +77,7 @@ class CaregiversTest {
         caregiver.setClients(new ArrayList<>());
         Mockito.doCallRealMethod().when(groomersRepositoryMock).persistAndFlush(Mockito.any(Groomers
                 .class));
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
         caregiversPersistencePort.addGroomer(caregiver);
         Mockito.verify(groomersRepositoryMock).persistAndFlush(groomersArgumentCaptor.capture());
         Groomers toReturn = groomersArgumentCaptor.getValue();
@@ -110,6 +115,8 @@ class CaregiversTest {
         caregiver.setClients(new ArrayList<>());
         Mockito.doCallRealMethod().when(vetsRepositoryMock).persistAndFlush(Mockito.any(Vets
                 .class));
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
+
         caregiversPersistencePort.addVet(caregiver);
         Mockito.verify(vetsRepositoryMock).persistAndFlush(vetsArgumentCaptor.capture());
         Vets toReturn = vetsArgumentCaptor.getValue();
@@ -146,6 +153,7 @@ class CaregiversTest {
         caregiver.setClients(new ArrayList<>());
         Mockito.doCallRealMethod().when(trainersRepositoryMock).persistAndFlush(Mockito.any(Trainers
                 .class));
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
         caregiversPersistencePort.addTrainer( caregiver);
         Mockito.verify(trainersRepositoryMock).persistAndFlush(trainersArgumentCaptor.capture());
         Trainers toReturn = trainersArgumentCaptor.getValue();
@@ -181,6 +189,7 @@ class CaregiversTest {
         caregiver.setSubscribed(false);
         caregiver.setClients(new ArrayList<>());
         //Groomers
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
         Mockito.doThrow(ConstraintViolationException.class).when(groomersRepositoryMock).persistAndFlush(Mockito.any(Groomers.class));
         Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addGroomer(caregiver));
         Mockito.verify(groomersRepositoryMock).persistAndFlush(groomersArgumentCaptor.capture());
@@ -210,6 +219,7 @@ class CaregiversTest {
         caregiver.setServiceRating(0.0);
         caregiver.setSubscribed(false);
         caregiver.setClients(new ArrayList<>());
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
         Mockito.doThrow(ConstraintViolationException.class).when(vetsRepositoryMock).persistAndFlush(Mockito.any(Vets.class));
         Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addVet( caregiver));
         Mockito.verify(vetsRepositoryMock).persistAndFlush(vetsArgumentCaptor.capture());
@@ -239,6 +249,7 @@ class CaregiversTest {
         caregiver.setServiceRating(0.0);
         caregiver.setSubscribed(false);
         caregiver.setClients(new ArrayList<>());
+        Mockito.when(countriesRepository.findIdByName(country.getName())).thenReturn((short)2);
         Mockito.doThrow(ConstraintViolationException.class).when(trainersRepositoryMock).persistAndFlush(Mockito.any(Trainers.class));
         Assertions.assertThrows(PetPalsExceptions.class, () -> caregiversPersistencePort.addTrainer(caregiver));
         Mockito.verify(trainersRepositoryMock).persistAndFlush(trainersArgumentCaptor.capture());
