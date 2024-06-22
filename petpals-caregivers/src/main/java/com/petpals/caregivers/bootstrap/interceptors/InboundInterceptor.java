@@ -19,7 +19,7 @@ public class InboundInterceptor implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext context) {
         if (context.getHeaderString("API-KEY") == null || !context.getHeaderString("API-KEY").equals(apiKey)) {
-            if(uriInfo.getPath().equals("/hello")){
+            if(uriInfo.getPath().startsWith("/hello")){
                 return;
             }
             throw new PetPalsExceptions(ExceptionsEnum.CAREGIVERS_MISSING_API_KEY);

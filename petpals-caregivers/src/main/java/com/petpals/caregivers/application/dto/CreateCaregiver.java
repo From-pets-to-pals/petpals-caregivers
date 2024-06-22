@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public record CreateCaregiver(String reference, String firstName, String lastName, String email, String phoneNumber, String address,
                               String city, String zipCode, String country, Days[] workingDays, SpeciesEnum[] palsHandled,
-                              boolean homeService, double appointmentDuration,
+                              boolean homeService, double appointmentDuration, boolean subscribed,
                               PalsFriendsTypes caregiverType, boolean isSubscribed, double serviceRating,
                               double priceRating) {
     @Override

@@ -25,20 +25,7 @@ public class Countries {
 	@NotBlank
 	@Column(name = "number",columnDefinition = "bpchar(3)")
 	private String number;
-	
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Countries countries = (Countries) o;
-		return Objects.equals(id, countries.id) && Objects.equals(name, countries.name) && Objects.equals(code, countries.code) && Objects.equals(number, countries.number);
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, code, number);
-	}
-	
+
 	public Short getId() {
 		return id;
 	}
@@ -69,5 +56,28 @@ public class Countries {
 	
 	public void setNumber(String number) {
 		this.number = number;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Countries countries = (Countries) o;
+		return Objects.equals(id, countries.id) && Objects.equals(name, countries.name) && Objects.equals(code, countries.code) && Objects.equals(number, countries.number);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, code, number);
+	}
+
+	@Override
+	public String toString() {
+		return "Countries{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", code='" + code + '\'' +
+				", number='" + number + '\'' +
+				'}';
 	}
 }
