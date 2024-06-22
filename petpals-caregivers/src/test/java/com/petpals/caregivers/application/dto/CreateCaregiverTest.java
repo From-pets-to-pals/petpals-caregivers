@@ -25,6 +25,7 @@ class CreateCaregiverTest {
                 false,
                 0.5,
                 PalsFriendsTypes.GROOMER,
+
                 false,
                 0.0,
                 0.0

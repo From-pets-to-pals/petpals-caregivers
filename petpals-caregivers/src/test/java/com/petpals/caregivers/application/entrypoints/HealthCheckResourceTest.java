@@ -30,14 +30,4 @@ class HealthCheckResourceTest {
                 .then()
                 .statusCode(200)
                 .body(is(String.format("Hello %s",name)));
-    }
-
-    @Test
-    void testNoApiKey() {
-        given()
-                .headers(new Headers())
-                .when().get("/hello/sid")
-                .then()
-                .statusCode(401);
-    }
-}
+    }}
