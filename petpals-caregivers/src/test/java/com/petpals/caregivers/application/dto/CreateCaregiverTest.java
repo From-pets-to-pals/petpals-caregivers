@@ -1,14 +1,17 @@
 package com.petpals.caregivers.application.dto;
 
-import com.petpals.shared.enums.CaregiverTypes;
-import com.petpals.shared.enums.Species;
+import com.petpals.shared.entities.uuid.UUIDGenerator;
+import com.petpals.shared.model.enums.PalsFriendsTypes;
+import com.petpals.shared.model.enums.SpeciesEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class CreateCaregiverTest {
     @Test
      void shouldCheckObjectsIntegrity(){
+        var reference = UUIDGenerator.generateUUID().toString();
         var createCaregiver = new CreateCaregiver(
+                reference,
                 "Sid",
                 "Bennaceur",
                 "sa.bennaceur@test-db-test.com",
@@ -18,15 +21,16 @@ class CreateCaregiverTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new SpeciesEnum[]{},
                 false,
                 0.5,
-                CaregiverTypes.GROOMER,
+                PalsFriendsTypes.GROOMER,
                 false,
                 0.0,
                 0.0
         );
         var checkEquality = new CreateCaregiver(
+                reference,
                 "Sid",
                 "Bennaceur",
                 "sa.bennaceur@test-db-test.com",
@@ -36,10 +40,10 @@ class CreateCaregiverTest {
                 "92150",
                 "France",
                 new Days[]{},
-                new Species[]{},
+                new SpeciesEnum[]{},
                 false,
                 0.5,
-                CaregiverTypes.GROOMER,
+                PalsFriendsTypes.GROOMER,
                 false,
                 0.0,
                 0.0

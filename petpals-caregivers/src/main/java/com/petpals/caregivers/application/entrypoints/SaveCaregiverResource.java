@@ -1,8 +1,8 @@
 package com.petpals.caregivers.application.entrypoints;
 
 import com.petpals.caregivers.application.dto.CreateCaregiver;
-import com.petpals.caregivers.application.mappers.CreateCaregiverMapper;
-import com.petpals.caregivers.domain.ports.in.CaregiversServicePort;
+import com.petpals.caregivers.application.mappers.CaregiversMapper;
+import com.petpals.caregivers.persistence.services.CaregiversPersistencePort;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -16,19 +16,32 @@ import org.jboss.logging.Logger;
 public class SaveCaregiverResource {
     private static final Logger LOG = Logger.getLogger(SaveCaregiverResource.class);
 
-    CaregiversServicePort caregiversServicePort;
-    CreateCaregiverMapper createCaregiverMapper;
-    public SaveCaregiverResource(CaregiversServicePort caregiversServicePort, CreateCaregiverMapper createCaregiverMapper) {
-        this.caregiversServicePort = caregiversServicePort;
-        this.createCaregiverMapper = createCaregiverMapper;
+    CaregiversPersistencePort caregiversPersistencePort;
+    CaregiversMapper caregiversMapper;
+    public SaveCaregiverResource(CaregiversPersistencePort caregiversPersistencePort, CaregiversMapper caregiversMapper) {
+        this.caregiversPersistencePort = caregiversPersistencePort;
+        this.caregiversMapper = caregiversMapper;
     }
 
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String addCaregiver(CreateCaregiver caregiver) {
+    public void addCaregiver(CreateCaregiver caregiver) {
         LOG.info(String.format("Received request to add caregiver: %s", caregiver));
-        return caregiversServicePort.addCaregiver(createCaregiverMapper.toDomain(caregiver));
+        switch (caregiver.caregiverType()){
+            case VET -> {
+                var vet = caregiversMapper.toVet(caregiver);
+                caregiversPersistencePort.addVet(vet);
+            }
+            case GROOMER -> {
+                var groomer = caregiversMapper.toGroomer(caregiver);
+                caregiversPersistencePort.addGroomer(groomer);
+            }
+            case TRAINER -> {
+                var trainer = caregiversMapper.toTrainer(caregiver);
+                caregiversPersistencePort.addTrainer(trainer);
+            }
+        }
     }
 }
