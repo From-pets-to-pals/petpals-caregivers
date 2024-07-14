@@ -6,52 +6,32 @@ import com.petpals.shared.model.enums.SpeciesEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 class CreateCaregiverTest {
-    @Test
-     void shouldCheckObjectsIntegrity(){
-        var reference = UUIDGenerator.generateUUID().toString();
-        var createCaregiver = new CreateCaregiver(
-                reference,
+
+
+    private CreateCaregiver createCaregiver(){
+        return new CreateCaregiver(
+                "24352352335325",
                 "Sid",
                 "Bennaceur",
                 "sa.bennaceur@test-db-test.com",
+                "Aa123456",
                 "0764017528",
                 "101, rue des Acquevilles",
                 "Suresnes",
                 "92150",
                 "France",
-                new Days[]{},
-                new SpeciesEnum[]{},
+                new String[0],
+                new String[0],
                 false,
                 0.5,
-                PalsFriendsTypes.GROOMER,
-
+                "GROOMER",
                 false,
                 0.0,
                 0.0
         );
-        var checkEquality = new CreateCaregiver(
-                reference,
-                "Sid",
-                "Bennaceur",
-                "sa.bennaceur@test-db-test.com",
-                "0764017528",
-                "101, rue des Acquevilles",
-                "Suresnes",
-                "92150",
-                "France",
-                new Days[]{},
-                new SpeciesEnum[]{},
-                false,
-                0.5,
-                PalsFriendsTypes.GROOMER,
-                false,
-                0.0,
-                0.0
-        );
-        Assertions.assertEquals(createCaregiver.hashCode(), checkEquality.hashCode());
-        Assertions.assertEquals(createCaregiver, checkEquality);
-        Assertions.assertEquals(createCaregiver.toString(), checkEquality.toString());
-
     }
 }

@@ -13,16 +13,14 @@ public interface CaregiversMapper {
     @Mappings(
             value =  {
                     @Mapping(target = "caregiverId", ignore = true),
-                    @Mapping(target = "clients", ignore = true),
-                    @Mapping(source = "country", target = "country.name")
+                    @Mapping(target = "pals", ignore = true),
             }
     )
     Groomers toGroomer(CreateCaregiver caregiver);
     @Mappings(
             value =  {
                     @Mapping(target = "caregiverId", ignore = true),
-                    @Mapping(target = "clients", ignore = true),
-                    @Mapping(source = "country", target = "country.name")
+                    @Mapping(target = "pals", ignore = true),
 
             }
     )
@@ -30,8 +28,7 @@ public interface CaregiversMapper {
     @Mappings(
             value =  {
                     @Mapping(target = "caregiverId", ignore = true),
-                    @Mapping(target = "clients", ignore = true),
-                    @Mapping(source = "country", target = "country.name")
+                    @Mapping(target = "pals", ignore = true),
             }
     )
     Trainers toTrainer(CreateCaregiver caregiver);

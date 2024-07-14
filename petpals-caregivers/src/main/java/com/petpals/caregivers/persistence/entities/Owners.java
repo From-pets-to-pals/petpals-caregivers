@@ -1,10 +1,8 @@
 package com.petpals.caregivers.persistence.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.UniqueElements;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,50 +14,69 @@ public class Owners {
     @SequenceGenerator(name = "owners_generator", sequenceName = "owners_seq", allocationSize = 1 )
     private Long id;
 
-    @Email
-    @Column(name = "email", nullable = false)
-    @UniqueElements
-    private String mail;
+    @Column(name = "email", nullable = false, unique=true)
+    private String email;
 
-    @NotBlank
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "salt", nullable = false)
+    private String salt;
+
     @Column(name = "device", nullable = false)
-    private String device;
-    @NotBlank
-    @Column(name = "reference", nullable = false, columnDefinition = "bpchar(36)")
-    @UniqueElements
+    private String deviceId;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "reference", nullable = false, columnDefinition = "bpchar(36)", unique = true)
     private String reference;
 
 
-    @NotBlank
     @Column(name = "location", nullable = false)
     private String location;
 
+    @OneToMany(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private List<Pals> pals;
+
     public Owners() {
+    }
+
+    public Owners(String email, String password, String salt, String deviceId, String reference, String location, String username) {
+        this.email = email;
+        this.password = password;
+        this.salt = salt;
+        this.deviceId = deviceId;
+        this.reference = reference;
+        this.location = location;
+        this.username = username;
     }
 
     @Override
     public String toString() {
         return "Owners{" +
-                "id=" + getId() +
-                ", mail='" + getMail() + '\'' +
-                ", device='" + getDevice() + '\'' +
-                ", reference='" + getReference() + '\'' +
-                ", location='" + getLocation() + '\'' +
+                "id=" + id +
+                ", mail='" + email + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", username='" + username + '\'' +
+                ", reference='" + reference + '\'' +
+                ", location='" + location + '\'' +
+                ", palsList=" + pals +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Owners owners = (Owners) o;
-        return Objects.equals(id, owners.id) && Objects.equals(mail, owners.mail) && Objects.equals(device, owners.device) && Objects.equals(reference, owners.reference) && Objects.equals(location, owners.location);
+        return Objects.equals(id, owners.id) && Objects.equals(email, owners.email) && Objects.equals(deviceId, owners.deviceId) && Objects.equals(username, owners.username) && Objects.equals(reference, owners.reference) && Objects.equals(location, owners.location) && Objects.equals(pals, owners.pals);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mail, device, reference, location);
+        return Objects.hash(id, email, deviceId, username, reference, location, pals);
     }
 
     public Long getId() {
@@ -70,20 +87,20 @@ public class Owners {
         this.id = id;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String mail) {
+        this.email = mail;
     }
 
-    public String getDevice() {
-        return device;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice(String device) {
-        this.device = device;
+    public void setDeviceId(String device) {
+        this.deviceId = device;
     }
 
     public String getReference() {
@@ -100,5 +117,37 @@ public class Owners {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Pals> getPals() {
+        return pals;
+    }
+
+    public void setPals(List<Pals> palsList) {
+        this.pals = palsList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

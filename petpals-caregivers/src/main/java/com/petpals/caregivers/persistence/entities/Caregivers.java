@@ -30,6 +30,10 @@ public class Caregivers {
     private String reference;
 
     @NotBlank
+    @Column(name="caregiver_type", insertable = false, updatable = false)
+    private String caregiverType;
+
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
 
@@ -40,6 +44,13 @@ public class Caregivers {
     @Email
     @Column(name="email")
     private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "salt", nullable = false)
+    private String salt;
+
 
     @NotBlank
     @Column(name="phone_number")
@@ -57,9 +68,9 @@ public class Caregivers {
     @Column(name="zip_code")
     private String zipCode;
 
-    @OneToOne
-    @JoinColumn(name = "country")
-    private Countries country;
+    @NotBlank
+    @Column(name="country")
+    private String country;
 
     @Type(StringArrayType.class)
     @Column(
@@ -80,15 +91,15 @@ public class Caregivers {
     private boolean homeService;
 
     @DecimalMin(value = "0.25")
-    @Column(name="appointment_duration", columnDefinition = "numeric(1,1) default 0.0")
+    @Column(name="appointment_duration", columnDefinition = "numeric(3,2) default 0.0")
     private double appointmentDuration;
 
     @DecimalMin(value = "0.0")
-    @Column(name="price_rating", columnDefinition = "numeric(1,1) default 5.0")
+    @Column(name="price_rating", columnDefinition = "numeric(3,2) default 0.0")
     private double priceRating;
 
     @DecimalMin(value = "0.0")
-    @Column(name="service_rating", columnDefinition = "numeric(1,1) default 5.0")
+    @Column(name="service_rating", columnDefinition = "numeric(3,2) default 0.0")
     private double serviceRating;
 
     @NotNull
@@ -101,7 +112,7 @@ public class Caregivers {
             joinColumns = { @JoinColumn(name = "caregiver_id") },
             inverseJoinColumns = { @JoinColumn(name = "pal_id") }
     )
-    List<Pals> clients;
+    List<Pals> pals;
 
     public Caregivers() {
     }
@@ -111,12 +122,12 @@ public class Caregivers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Caregivers that = (Caregivers) o;
-        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(caregiverId, that.caregiverId) && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && Objects.equals(clients, that.clients);
+        return homeService == that.homeService && Double.compare(appointmentDuration, that.appointmentDuration) == 0 && Double.compare(priceRating, that.priceRating) == 0 && Double.compare(serviceRating, that.serviceRating) == 0 && isSubscribed == that.isSubscribed && Objects.equals(caregiverId, that.caregiverId) && Objects.equals(reference, that.reference) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(address, that.address) && Objects.equals(city, that.city) && Objects.equals(zipCode, that.zipCode) && Objects.equals(country, that.country) && Objects.deepEquals(workingDays, that.workingDays) && Objects.deepEquals(palsHandled, that.palsHandled) && Objects.equals(pals, that.pals);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(caregiverId, firstName, lastName, email, phoneNumber, address, city, zipCode, country, homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, clients);
+        int result = Objects.hash(caregiverId, firstName, lastName, email, phoneNumber, address, city, zipCode, country, homeService, appointmentDuration, priceRating, serviceRating, isSubscribed, pals);
         result = 31 * result + Arrays.hashCode(workingDays);
         result = 31 * result + Arrays.hashCode(palsHandled);
         return result;
@@ -141,7 +152,7 @@ public class Caregivers {
                 ", priceRating=" + getPriceRating() +
                 ", serviceRating=" + getServiceRating() +
                 ", isSubscribed=" + isSubscribed +
-                ", clients=" + getClients() +
+                ", pals=" + getPals() +
                 '}';
     }
 
@@ -209,11 +220,11 @@ public class Caregivers {
         this.zipCode = zipCode;
     }
 
-    public Countries getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(Countries country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -273,12 +284,12 @@ public class Caregivers {
         isSubscribed = subscribed;
     }
 
-    public List<Pals> getClients() {
-        return clients;
+    public List<Pals> getPals() {
+        return pals;
     }
 
-    public void setClients(List<Pals> clients) {
-        this.clients = clients;
+    public void setPals(List<Pals> pals) {
+        this.pals = pals;
     }
 
     public String getReference() {
@@ -287,5 +298,29 @@ public class Caregivers {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public @NotBlank String getCaregiverType() {
+        return caregiverType;
+    }
+
+    public void setCaregiverType(@NotBlank String caregiverType) {
+        this.caregiverType = caregiverType;
     }
 }
