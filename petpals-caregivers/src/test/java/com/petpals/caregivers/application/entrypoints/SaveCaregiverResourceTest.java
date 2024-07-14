@@ -32,25 +32,7 @@ class SaveCaregiverResourceTest {
     void testAddCaregiver() throws JsonProcessingException {
         var uuid = UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,"");
         Mockito.doNothing().when(caregiversPersistencePort).addGroomer(Mockito.any(Groomers.class));
-        var createCaregiver = new CreateCaregiver(
-                UUIDGenerator.generateUUID().toString(),
-                "Sid",
-                "Bennaceur",
-                "sa.bennaceur@test-db-test.com",
-                "0764017528",
-                "101, rue des Acquevilles",
-                "Suresnes",
-                "92150",
-                "France",
-                new Days[]{},
-                new SpeciesEnum[]{},
-                false,
-                0.5,
-                PalsFriendsTypes.GROOMER,
-                false,
-                0.0,
-                0.0
-        );
+        var createCaregiver = createCaregiver();
         ObjectMapper mapper = new ObjectMapper();
         var json = mapper.writeValueAsString(createCaregiver);
         given()
@@ -67,25 +49,7 @@ class SaveCaregiverResourceTest {
     void testAddVets() throws JsonProcessingException {
         var uuid = UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,"");
         Mockito.doNothing().when(caregiversPersistencePort).addGroomer(Mockito.any(Groomers.class));
-        var createCaregiver = new CreateCaregiver(
-                UUIDGenerator.generateUUID().toString(),
-                "Sid",
-                "Bennaceur",
-                "sa.bennaceur@test-db-test.com",
-                "0764017528",
-                "101, rue des Acquevilles",
-                "Suresnes",
-                "92150",
-                "France",
-                new Days[]{},
-                new SpeciesEnum[]{},
-                false,
-                0.5,
-                PalsFriendsTypes.VET,
-                false,
-                0.0,
-                0.0
-        );
+        var createCaregiver = createCaregiver();
         ObjectMapper mapper = new ObjectMapper();
         var json = mapper.writeValueAsString(createCaregiver);
         given()
@@ -102,25 +66,7 @@ class SaveCaregiverResourceTest {
     void testAddTrainer() throws JsonProcessingException {
         var uuid = UUIDFormatter.formatUUIDSequence(UUIDGenerator.generateUUID(),true,"");
         Mockito.doNothing().when(caregiversPersistencePort).addGroomer(Mockito.any(Groomers.class));
-        var createCaregiver = new CreateCaregiver(
-                UUIDGenerator.generateUUID().toString(),
-                "Sid",
-                "Bennaceur",
-                "sa.bennaceur@test-db-test.com",
-                "0764017528",
-                "101, rue des Acquevilles",
-                "Suresnes",
-                "92150",
-                "France",
-                new Days[]{},
-                new SpeciesEnum[]{},
-                false,
-                0.5,
-                PalsFriendsTypes.TRAINER,
-                false,
-                0.0,
-                0.0
-        );
+        var createCaregiver = createCaregiver();
         ObjectMapper mapper = new ObjectMapper();
         var json = mapper.writeValueAsString(createCaregiver);
         given()
@@ -131,6 +77,29 @@ class SaveCaregiverResourceTest {
                 .then()
                 .statusCode(204);
 
+    }
+
+    private CreateCaregiver createCaregiver(){
+        return new CreateCaregiver(
+                "24352352335325",
+                "Sid",
+                "Bennaceur",
+                "sa.bennaceur@test-db-test.com",
+                "Aa123456",
+                "0764017528",
+                "101, rue des Acquevilles",
+                "Suresnes",
+                "92150",
+                "France",
+                new String[0],
+                new String[0],
+                false,
+                0.5,
+                "GROOMER",
+                false,
+                0.0,
+                0.0
+        );
     }
 
 }

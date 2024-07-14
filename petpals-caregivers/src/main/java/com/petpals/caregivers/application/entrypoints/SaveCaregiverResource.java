@@ -30,15 +30,15 @@ public class SaveCaregiverResource {
     public void addCaregiver(CreateCaregiver caregiver) {
         LOG.info(String.format("Received request to add caregiver: %s", caregiver));
         switch (caregiver.caregiverType()){
-            case VET -> {
+            case "VET" -> {
                 var vet = caregiversMapper.toVet(caregiver);
                 caregiversPersistencePort.addVet(vet);
             }
-            case GROOMER -> {
+            case "GROOMER" -> {
                 var groomer = caregiversMapper.toGroomer(caregiver);
                 caregiversPersistencePort.addGroomer(groomer);
             }
-            case TRAINER -> {
+            case "TRAINER" -> {
                 var trainer = caregiversMapper.toTrainer(caregiver);
                 caregiversPersistencePort.addTrainer(trainer);
             }
